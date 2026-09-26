@@ -1,0 +1,955 @@
+/* Zeko AI front-end styles. */
+
+.zeko-ai {
+	font-family: inherit;
+}
+
+.zeko-ai-gate {
+	padding: 16px;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	background: #f8fafc;
+}
+
+.zeko-ai-chat-log {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	overflow-y: auto;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	background: #f8fafc;
+	padding: 12px;
+	min-height: 180px;
+}
+
+.zeko-ai-msg {
+	max-width: 80%;
+	padding: 10px 14px;
+	border-radius: 12px;
+	font-size: 14px;
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+.zeko-ai-msg-user {
+	align-self: flex-end;
+	background: #4f46e5;
+	color: #fff;
+	border-bottom-right-radius: 2px;
+}
+
+.zeko-ai-msg-assistant {
+	align-self: flex-start;
+	background: #fff;
+	border: 1px solid #e2e8f0;
+	border-bottom-left-radius: 2px;
+}
+
+.zeko-ai-chat-busy {
+	align-self: flex-start;
+	color: #64748b;
+	font-style: italic;
+	font-size: 13px;
+}
+
+.zeko-ai-chat-compose {
+	display: flex;
+	gap: 8px;
+	margin-top: 10px;
+}
+
+.zeko-ai-chat-input {
+	flex: 1;
+	padding: 10px 12px;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	resize: none;
+	font-family: inherit;
+	font-size: 14px;
+}
+
+.zeko-ai-chat-send {
+	align-self: flex-end;
+}
+
+.zeko-ai-search-form {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 12px;
+}
+
+.zeko-ai-search-input {
+	flex: 1;
+	padding: 10px 12px;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	font-size: 14px;
+}
+
+.zeko-ai-search-count {
+	font-size: 13px;
+	color: #64748b;
+	margin-bottom: 8px;
+}
+
+.zeko-ai-search-type {
+	margin: 12px 0 6px;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: #4f46e5;
+}
+
+.zeko-ai-search-item {
+	padding: 8px 0;
+	border-bottom: 1px solid #f1f5f9;
+}
+
+.zeko-ai-search-item a {
+	font-weight: 600;
+}
+
+.zeko-ai-search-excerpt {
+	font-size: 13px;
+	color: #64748b;
+	margin-top: 2px;
+}
+
+.zeko-ai-recs-list ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.zeko-ai-recs-item {
+	padding: 10px 0;
+	border-bottom: 1px solid #f1f5f9;
+}
+
+.zeko-ai-recs-type {
+	font-size: 11px;
+	text-transform: uppercase;
+	color: #64748b;
+	background: #f1f5f9;
+	border-radius: 999px;
+	padding: 2px 8px;
+	margin-left: 6px;
+}
+
+.zeko-ai-recs-reason {
+	font-size: 13px;
+	color: #64748b;
+	margin-top: 4px;
+}
+
+.zeko-ai-writer-controls {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-bottom: 12px;
+}
+
+.zeko-ai-writer-controls label {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.zeko-ai-writer-controls input,
+.zeko-ai-writer-controls textarea,
+.zeko-ai-writer-controls select {
+	padding: 8px 10px;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	font-family: inherit;
+	font-size: 14px;
+}
+
+.zeko-ai-writer-output {
+	width: 100%;
+	padding: 10px 12px;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	font-family: inherit;
+	font-size: 14px;
+}
+
+/* Inline "Generate with AI" button used inside module forms. */
+.zeko-ai-writer-inline {
+	margin: 10px 0;
+}
+
+.zeko-ai-writer-inline-go {
+	display: inline-block;
+	padding: 8px 14px;
+	border: 1px solid #2563eb;
+	border-radius: 8px;
+	background: #2563eb;
+	color: #fff;
+	font-family: inherit;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.zeko-ai-writer-inline-go:hover {
+	background: #1d4ed8;
+	border-color: #1d4ed8;
+}
+
+.zeko-ai-writer-inline-body {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px solid #e2e8f0;
+}
+
+.zeko-ai-writer-inline-body[hidden] {
+	display: none;
+}
+
+.zeko-ai-writer-inline-fields {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.zeko-ai-writer-inline-fields label {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.zeko-ai-writer-inline-fields input,
+.zeko-ai-writer-inline-fields textarea {
+	padding: 8px 10px;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	font-family: inherit;
+	font-size: 14px;
+}
+
+.zeko-ai-writer-inline-actions {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.zeko-ai-writer-inline-actions button {
+	padding: 7px 12px;
+	border-radius: 8px;
+	font-family: inherit;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.zeko-ai-writer-inline-insert {
+	border: 1px solid #e2e8f0;
+	background: #fff;
+	color: #0f172a;
+}
+
+.zeko-ai-writer-inline-insert:hover {
+	background: #f8fafc;
+}
+
+.zeko-ai-writer-inline-status {
+	font-size: 13px;
+	color: #64748b;
+}
+
+.zeko-ai-writer-inline-status.zeko-ai-error {
+	color: #d63638;
+}
+
+.zeko-ai-error {
+	color: #d63638;
+}
+
+.zeko-ai-busy {
+	color: #64748b;
+	font-style: italic;
+}
+
+/* Floating widget. */
+.zeko-ai-widget {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	z-index: 99990;
+	font-family: inherit;
+}
+
+.zeko-ai-widget-toggle {
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	border: none;
+	background: #4f46e5;
+	color: #fff;
+	font-size: 15px;
+	font-weight: 700;
+	cursor: pointer;
+	box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+}
+
+.zeko-ai-widget-panel {
+	display: none;
+	position: absolute;
+	right: 0;
+	bottom: 68px;
+	width: 340px;
+	max-width: calc(100vw - 40px);
+	background: #fff;
+	border: 1px solid #e2e8f0;
+	border-radius: 14px;
+	box-shadow: 0 12px 40px rgba(15, 23, 42, 0.18);
+	padding: 12px;
+}
+
+.zeko-ai-widget-panel.is-open {
+	display: block;
+}
+
+.zeko-ai-widget-head {
+	font-weight: 700;
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.zeko-ai-widget-close {
+	border: none;
+	background: none;
+	font-size: 20px;
+	line-height: 1;
+	cursor: pointer;
+	color: #64748b;
+}
+
+.zeko-ai-widget .zeko-ai-chat-log {
+	min-height: 200px;
+	max-height: 320px;
+}
+
+
+.zeko-ai-vote {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin-top: 2px;
+}
+
+.zeko-ai-vote-label {
+	font-size: 11px;
+	color: #64748b;
+	margin-right: 2px;
+}
+
+.zeko-ai-vote button {
+	border: 1px solid #cbd5e1;
+	background: #fff;
+	border-radius: 14px;
+	padding: 2px 10px;
+	font-size: 12px;
+	line-height: 1.6;
+	color: #334155;
+	cursor: pointer;
+}
+
+.zeko-ai-vote button:hover {
+	border-color: #4f46e5;
+	color: #4f46e5;
+}
+
+.zeko-ai-vote.is-voted button {
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+/* Markdown rendering inside assistant bubbles. */
+.zeko-ai-msg-assistant {
+	white-space: normal;
+}
+
+.zeko-ai-msg-assistant p {
+	margin: 0 0 8px;
+}
+
+.zeko-ai-msg-assistant p:last-child {
+	margin-bottom: 0;
+}
+
+.zeko-ai-msg-assistant ul,
+.zeko-ai-msg-assistant ol {
+	margin: 4px 0 8px;
+	padding-left: 20px;
+}
+
+.zeko-ai-msg-assistant li {
+	margin: 2px 0;
+}
+
+.zeko-ai-msg-assistant a {
+	color: #4f46e5;
+}
+
+.zeko-ai-msg-assistant code {
+	background: #f1f5f9;
+	border-radius: 4px;
+	padding: 1px 5px;
+	font-size: 12.5px;
+}
+
+.zeko-ai-msg-assistant pre {
+	background: #0f172a;
+	color: #e2e8f0;
+	border-radius: 8px;
+	padding: 10px 12px;
+	overflow-x: auto;
+}
+
+.zeko-ai-msg-assistant pre code {
+	background: none;
+	color: inherit;
+	padding: 0;
+}
+
+.zeko-ai-msg-assistant h4.zeko-ai-md-h {
+	margin: 10px 0 6px;
+	font-size: 14px;
+}
+
+/* Conversation picker + delete. */
+.zeko-ai-conversation-row {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 10px;
+}
+
+.zeko-ai-conversation-picker {
+	flex: 1;
+	padding: 6px 10px;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	font-size: 13px;
+	background: #fff;
+}
+
+.zeko-ai-chat-delete {
+	border: 1px solid #e2e8f0;
+	background: #fff;
+	color: #d63638;
+	border-radius: 8px;
+	padding: 4px 10px;
+	font-size: 12px;
+	cursor: pointer;
+}
+
+.zeko-ai-chat-delete:hover {
+	border-color: #d63638;
+}
+
+/* Follow-up chips + action buttons. */
+.zeko-ai-chips {
+	align-self: flex-start;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin: 2px 0 4px;
+	max-width: 100%;
+}
+
+.zeko-ai-chip {
+	border: 1px solid #c7d2fe;
+	background: #eef2ff;
+	color: #4338ca;
+	border-radius: 999px;
+	padding: 5px 12px;
+	font-size: 12px;
+	line-height: 1.5;
+	cursor: pointer;
+	text-decoration: none;
+	transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.zeko-ai-chip:hover {
+	background: #e0e7ff;
+	border-color: #a5b4fc;
+}
+
+.zeko-ai-chip-action {
+	background: #4f46e5;
+	color: #fff;
+	border-color: #4f46e5;
+}
+
+.zeko-ai-chip-action:hover {
+	background: #4338ca;
+	border-color: #4338ca;
+	color: #fff;
+}
+
+/* Member profile hub. */
+.zeko-ai-profile {
+	max-width: 760px;
+	margin: 0 auto;
+}
+
+.zeko-ai-profile--empty {
+	text-align: center;
+	padding: 48px 16px;
+	color: #6b7280;
+}
+
+.zeko-ai-profile-head {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	padding: 24px;
+	background: #fff;
+	border: 1px solid #e5e7eb;
+	border-radius: 14px;
+	margin-bottom: 18px;
+}
+
+.zeko-ai-profile-avatar img {
+	border-radius: 50%;
+	display: block;
+}
+
+.zeko-ai-profile-name {
+	margin: 0 0 4px;
+	font-size: 24px;
+	line-height: 1.2;
+}
+
+.zeko-ai-profile-bio {
+	margin: 0 0 4px;
+	color: #374151;
+}
+
+.zeko-ai-profile-meta-line {
+	margin: 0;
+	font-size: 13px;
+	color: #6b7280;
+}
+
+.zeko-ai-profile-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-bottom: 18px;
+}
+
+.zeko-ai-profile-tab {
+	padding: 8px 14px;
+	border: 1px solid #e5e7eb;
+	border-radius: 999px;
+	background: #fff;
+	color: #374151;
+	text-decoration: none;
+	font-size: 13px;
+	transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.zeko-ai-profile-tab:hover {
+	border-color: #a5b4fc;
+	background: #eef2ff;
+}
+
+.zeko-ai-profile-tab.is-active {
+	background: #4f46e5;
+	border-color: #4f46e5;
+	color: #fff;
+}
+
+.zeko-ai-profile-overview {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 14px;
+}
+
+.zeko-ai-profile-card {
+	background: #fff;
+	border: 1px solid #e5e7eb;
+	border-radius: 12px;
+	padding: 18px;
+}
+
+.zeko-ai-profile-card--featured {
+	border-color: #c7d2fe;
+	box-shadow: 0 1px 3px rgba(79, 70, 229, 0.12);
+}
+
+.zeko-ai-profile-card-title {
+	margin: 0 0 10px;
+	font-size: 17px;
+}
+
+.zeko-ai-profile-card-stats {
+	list-style: none;
+	margin: 0 0 14px;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.zeko-ai-profile-card-stats li {
+	background: #f3f4f6;
+	border-radius: 999px;
+	padding: 4px 10px;
+	font-size: 12px;
+	color: #374151;
+}
+
+.zeko-ai-profile-card-link {
+	display: inline-block;
+}
+
+.zeko-ai-profile-empty {
+	color: #6b7280;
+	padding: 24px 0;
+}
+
+.zeko-ai-profile-meta {
+	flex: 1;
+	min-width: 0;
+}
+
+.zeko-ai-profile-strength {
+	margin-top: 12px;
+	max-width: 340px;
+}
+
+.zeko-ai-profile-strength-top {
+	display: flex;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 6px;
+	font-size: 12px;
+	color: #6b7280;
+}
+
+.zeko-ai-profile-strength-label {
+	font-weight: 600;
+	color: #4f46e5;
+}
+
+.zeko-ai-profile-meter {
+	height: 8px;
+	border-radius: 999px;
+	background: #e5e7eb;
+	overflow: hidden;
+}
+
+.zeko-ai-profile-meter-bar {
+	height: 100%;
+	border-radius: 999px;
+	background: linear-gradient(90deg, #6366f1, #8b5cf6);
+	transition: width 0.4s ease;
+}
+
+.zeko-ai-profile-stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 14px;
+}
+
+.zeko-ai-profile-stat {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 6px;
+	background: #eef2ff;
+	border: 1px solid #c7d2fe;
+	border-radius: 10px;
+	padding: 6px 12px;
+}
+
+.zeko-ai-profile-stat strong {
+	font-size: 16px;
+	color: #3730a3;
+}
+
+.zeko-ai-profile-stat span {
+	font-size: 12px;
+	color: #6b7280;
+}
+
+.zeko-ai-profile-share {
+	margin-top: 14px;
+	border: 1px solid #e5e7eb;
+	background: #fff;
+	color: #374151;
+	border-radius: 999px;
+	padding: 6px 14px;
+	font-size: 13px;
+	cursor: pointer;
+	transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.zeko-ai-profile-share:hover {
+	border-color: #a5b4fc;
+	background: #eef2ff;
+}
+
+.zeko-ai-profile-panels {
+	position: relative;
+}
+
+.zeko-ai-profile-panel[hidden] {
+	display: none;
+}
+
+.zeko-ai-profile-rewards {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+	margin-top: 14px;
+}
+
+.zeko-ai-profile-rewards-tier,
+.zeko-ai-profile-rewards-points,
+.zeko-ai-profile-rewards-badges {
+	display: inline-flex;
+	align-items: center;
+	border-radius: 999px;
+	padding: 4px 12px;
+	font-size: 12px;
+}
+
+.zeko-ai-profile-rewards-tier {
+	background: #fef3c7;
+	border: 1px solid #fde68a;
+	color: #92400e;
+	font-weight: 600;
+}
+
+.zeko-ai-profile-rewards-points,
+.zeko-ai-profile-rewards-badges {
+	background: #ecfdf5;
+	border: 1px solid #a7f3d0;
+	color: #065f46;
+}
+
+.zeko-ai-profile-rewards-link {
+	font-size: 13px;
+	color: #4f46e5;
+	text-decoration: none;
+}
+
+.zeko-ai-profile-rewards-link:hover {
+	text-decoration: underline;
+}
+
+.zeko-ai-profile-activity,
+.zeko-ai-profile-checklist {
+	margin-top: 22px;
+}
+
+.zeko-ai-profile-activity-title,
+.zeko-ai-profile-checklist-title {
+	margin: 0 0 10px;
+	font-size: 16px;
+}
+
+.zeko-ai-profile-activity-list,
+.zeko-ai-profile-checklist-items {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.zeko-ai-profile-activity-item {
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
+	padding: 8px 12px;
+	border-bottom: 1px solid #f3f4f6;
+	font-size: 13px;
+}
+
+.zeko-ai-profile-activity-item:last-child {
+	border-bottom: 0;
+}
+
+.zeko-ai-profile-activity-label {
+	font-weight: 600;
+	color: #111827;
+}
+
+.zeko-ai-profile-activity-meta {
+	color: #6b7280;
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.zeko-ai-profile-activity-time {
+	color: #a1a1aa;
+	font-size: 12px;
+	white-space: nowrap;
+}
+
+.zeko-ai-profile-checklist {
+	background: #f8fafc;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	padding: 16px;
+}
+
+.zeko-ai-profile-checklist-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 8px 0;
+}
+
+.zeko-ai-profile-checklist-state {
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 13px;
+	color: #fff;
+	background: #4f46e5;
+	flex: 0 0 auto;
+}
+
+.zeko-ai-profile-checklist-item.is-done .zeko-ai-profile-checklist-state {
+	background: #10b981;
+}
+
+.zeko-ai-profile-checklist-text {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.zeko-ai-profile-checklist-desc {
+	font-size: 12px;
+	color: #6b7280;
+}
+
+.zeko-ai-profile-checklist-link {
+	white-space: nowrap;
+}
+
+/* ─── Dark Mode ──────────────────────────────────────────────── */
+[data-theme="dark"] .zeko-ai-gate,
+[data-theme="dark"] .zeko-ai-chat-log {
+    background: #1f2937;
+    border-color: #374151;
+    color: #e5e7eb;
+}
+
+[data-theme="dark"] .zeko-ai-msg-assistant {
+    background: #374151;
+    border-color: #4b5563;
+    color: #e5e7eb;
+}
+
+[data-theme="dark"] .zeko-ai-chat-busy {
+    color: #a1a1aa;
+}
+
+[data-theme="dark"] .zeko-ai-chat-input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="search"] {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f9fafb;
+}
+
+[data-theme="dark"] .zeko-ai-search-form input {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f9fafb;
+}
+
+[data-theme="dark"] .zeko-ai-suggestion-chip {
+    background: #374151;
+    color: #a1a1aa;
+    border-color: #4b5563;
+}
+
+[data-theme="dark"] .zeko-ai-suggestion-chip:hover {
+    background: #4b5563;
+    color: #f9fafb;
+}
+
+[data-theme="dark"] .zeko-ai-card,
+[data-theme="dark"] .zeko-ai-result-card,
+[data-theme="dark"] .zeko-ai-profile-card {
+    background: #1f2937;
+    border-color: #374151;
+    color: #e5e7eb;
+}
+
+[data-theme="dark"] .zeko-ai-card h3,
+[data-theme="dark"] .zeko-ai-card h4 {
+    color: #f9fafb;
+}
+
+[data-theme="dark"] .zeko-ai-lead-card {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+[data-theme="dark"] .zeko-ai-badge {
+    background: #374151;
+    color: #a1a1aa;
+}
+
+[data-theme="dark"] .zeko-ai-empty,
+[data-theme="dark"] .zeko-ai-muted {
+    color: #6b7280;
+}
+
+[data-theme="dark"] .zeko-ai-profile-checklist {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+[data-theme="dark"] .zeko-ai-profile-checklist-text {
+    color: #e5e7eb;
+}
+
+[data-theme="dark"] .zeko-ai-profile-checklist-desc {
+    color: #6b7280;
+}
+
+[data-theme="dark"] code,
+[data-theme="dark"] pre {
+    background: #374151;
+    color: #e5e7eb;
+    border-color: #4b5563;
+}
+
+[data-theme="dark"] .zeko-ai-thinking {
+    color: #a1a1aa;
+}
+
+[data-theme="dark"] blockquote {
+    border-left-color: #4b5563;
+    color: #a1a1aa;
+}
+

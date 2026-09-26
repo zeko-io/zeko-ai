@@ -1,0 +1,12 @@
+THIRD-PARTY NOTICES — Zeko AI
+=============================
+
+Zeko AI ships NO third-party runtime assets. Everything in this package
+(includes/**, assets/css/zeko-ai.css, assets/js/zeko-ai.js,
+assets/js/zeko-ai-profile.js, languages/*, screenshot-1.png) is original Zeko
+code/asset work licensed GPL-2.0-or-later (see the plugin header). Zeko AI
+bundles no fonts, icon libraries (inline icons are hand-authored inline SVG
+strokes), or images other than its screenshot. All third-party interactions
+are outbound API calls to AI / search providers, documented endpoint-by-
+endpoint in REMOTE-SERVICES.txt in this folder. No third-party code is
+executed locally from those providers.

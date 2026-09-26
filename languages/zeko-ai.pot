@@ -1,0 +1,2256 @@
+# Copyright (C) 2026 Zeko Team
+# This file is distributed under the GNU General Public License v2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: zeko-ai 0.5.1\n"
+"Report-Msgid-Bugs-To: https://zeko.io\n"
+"POT-Creation-Date: 2026-09-25 08:13+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language-Team: Zeko Team\n"
+"X-Domain: zeko-ai\n"
+"X-Generator: zeko make-pot\n"
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:91
+msgid "\"What you will learn\" list"
+msgstr ""
+
+#. translators: 1: active profile count, 2: tracked module count
+#: includes/class-zeko-ai-profile.php:781
+#, php-format
+msgid "%1$d of %2$d profiles"
+msgstr ""
+
+#. translators: 1: provider name, 2: model, 3: reply snippet.
+#: includes/admin/class-zeko-ai-admin.php:320
+#, php-format
+msgid "%1$s (%2$s) replied: \"%3$s\""
+msgstr ""
+
+#. translators: %d: answer count
+#: includes/class-zeko-ai-profile.php:584
+#, php-format
+msgid "%d answer"
+msgid_plural "%d answers"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: badge count
+#: includes/class-zeko-ai-profile.php:807
+#, php-format
+msgid "%d badges"
+msgstr ""
+
+#. translators: %d: reward points
+#: includes/class-zeko-ai-profile.php:801
+#, php-format
+msgid "%d points"
+msgstr ""
+
+#. translators: %d: portfolio item count
+#: includes/class-zeko-ai-profile.php:684
+#, php-format
+msgid "%d portfolio item"
+msgid_plural "%d portfolio items"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: published course count
+#: includes/class-zeko-ai-profile.php:722
+#, php-format
+msgid "%d published course"
+msgid_plural "%d published courses"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: question count
+#: includes/class-zeko-ai-profile.php:579
+#, php-format
+msgid "%d question"
+msgid_plural "%d questions"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: reputation points
+#: includes/class-zeko-ai-profile.php:589
+#, php-format
+msgid "%d reputation"
+msgstr ""
+
+#. translators: %d: student count
+#: includes/class-zeko-ai-profile.php:727
+#, php-format
+msgid "%d student"
+msgid_plural "%d students"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: provider name.
+#: includes/admin/class-zeko-ai-admin.php:218
+#, php-format
+msgid "%s API key"
+msgstr ""
+
+#. translators: %s: module name, e.g. qa
+#: includes/class-zeko-ai-profile.php:524
+#, php-format
+msgid "%s activity"
+msgstr ""
+
+#. translators: %s: provider name.
+#: includes/admin/class-zeko-ai-admin.php:228
+#, php-format
+msgid "%s base URL"
+msgstr ""
+
+#. translators: %s: provider name.
+#: includes/admin/class-zeko-ai-admin.php:224
+#, php-format
+msgid "%s model"
+msgstr ""
+
+#: includes/providers/class-zeko-ai-agent-provider.php:1385
+msgid "**A quick look beyond Zeko:**"
+msgstr ""
+
+#. translators: %s: opening hours text for the business
+#: includes/providers/class-zeko-ai-agent-provider.php:1328
+#, php-format
+msgid "**Opening hours:** %s"
+msgstr ""
+
+#: includes/providers/class-zeko-ai-agent-provider.php:1370
+msgid "**Things you can do from here:**"
+msgstr ""
+
+#: includes/class-zeko-ai-ecosystem.php:102
+#: includes/class-zeko-ai-ecosystem.php:167
+#: includes/class-zeko-ai-ecosystem.php:180
+#: includes/class-zeko-ai-ecosystem.php:273
+#: includes/class-zeko-ai-ecosystem.php:313
+msgid "AI"
+msgstr ""
+
+#: zeko-ai.php:193
+msgid "AI Assistant"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1095
+msgid "AI Moderation"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:63
+msgid "AI Moderation Queue"
+msgstr ""
+
+#: zeko-ai.php:201
+msgid "AI Recommendations"
+msgstr ""
+
+#: zeko-ai.php:197
+msgid "AI Search"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:72
+#: includes/admin/class-zeko-ai-admin.php:1257
+msgid "AI Usage Analytics"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:144
+msgid "AI requests"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1155
+msgid "AI verdict"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-love.php:106
+msgid "About them"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:180
+msgid "About this course"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:243
+msgid "About this job"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-site.php:169
+msgid "About this page"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-shop.php:178
+msgid "About this product"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:231
+msgid "About this project"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:739
+#: includes/admin/class-zeko-ai-admin.php:806
+#: includes/admin/class-zeko-ai-admin.php:971
+#: includes/admin/class-zeko-ai-admin.php:1156
+msgid "Actions"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:848
+msgid "Active"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:656
+msgid "Active dating profile"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:158
+msgid "Active provider:"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:272
+msgid ""
+"Add web results from a keyless engine. The chat agent and site search show "
+"Zeko results first, then a short \"from the web\" section (web is also the "
+"fallback when nothing on Zeko matches)"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:267
+msgid "Address"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:82
+msgid "Agent"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:663
+msgid "Agent model"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1106
+#: includes/admin/class-zeko-ai-admin.php:1127
+msgid "All"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:845
+msgid "All-round"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:262
+msgid "Allow free Wikipedia lookups for world knowledge (off by default)"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:73
+#: includes/admin/class-zeko-ai-admin.php:135
+msgid "Analytics"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:693
+#: includes/admin/class-zeko-ai-admin.php:735
+msgid "Answer"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:109
+msgid "Answer draft"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:220
+msgid "Answer it"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:365
+msgid "Answered"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:507
+msgid "Answered a question"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:198
+msgid "Answers"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:178
+msgid "Anthropic"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:200
+msgid "Anthropic API key"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:206
+msgid "Anthropic model"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:185
+msgid ""
+"Any external provider selected without its API key automatically falls back "
+"to the offline Mock. If a live provider errors at runtime, requests fail "
+"over to the next keyed provider, then the Community Agent, then Mock — the "
+"site never breaks."
+msgstr ""
+
+#. translators: %s: name of the suggested page
+#: includes/providers/class-zeko-ai-agent-provider.php:1406
+#, php-format
+msgid ""
+"Anything else — open the %s page to explore more, or pick an action above."
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:509
+msgid "Applied to a job"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:250
+msgid "Apply now"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1191
+msgid "Approve"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1104
+msgid "Approved"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-site.php:128
+#: includes/integrations/class-zeko-ai-integration-site.php:189
+msgid "Article"
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:62
+#: includes/public/class-zeko-ai-shortcodes.php:238
+msgid "Ask Zeko…"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:360
+#: includes/integrations/class-zeko-ai-integration-qa.php:221
+msgid "Ask a question"
+msgstr ""
+
+#: includes/providers/class-zeko-ai-agent-provider.php:443
+msgid "Ask on Q&A"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:340
+msgid "Ask or answer your first question to start building reputation."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:186
+msgid "Asked"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:506
+msgid "Asked a question"
+msgstr ""
+
+#: includes/class-zeko-ai-ecosystem.php:282
+msgid "Assistant"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:130
+msgid "Assistant & chatbot"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1152
+#: includes/integrations/class-zeko-ai-integration-site.php:134
+msgid "Author"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:667
+msgid "Auto-learn"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:261
+msgid "Auto-learn from confirmed answers (when members thank a corpus result)"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:266
+msgid ""
+"Auto-learn, admin email alerts, and the weekly radar digest are off by "
+"default for privacy and only activate after you explicitly enable them here."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:238
+msgid "Auto-review new community content"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-site.php:184
+msgid "Back to the site"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:133
+msgid "Bid proposal"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:284
+msgid "Bing API key"
+msgstr ""
+
+#: includes/class-zeko-ai-web-search.php:54
+msgid "Bing Web Search"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:225
+msgid "Bio"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:232
+msgid "Book a session"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:362
+msgid "Both a question and an answer are required."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:286
+msgid "Brave API key"
+msgstr ""
+
+#: includes/class-zeko-ai-web-search.php:55
+msgid "Brave Search"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:188
+#: includes/providers/class-zeko-ai-agent-provider.php:436
+msgid "Browse courses"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:251
+#: includes/providers/class-zeko-ai-agent-provider.php:429
+msgid "Browse jobs"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:233
+msgid "Browse mentors"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:239
+#: includes/providers/class-zeko-ai-agent-provider.php:457
+msgid "Browse projects"
+msgstr ""
+
+#: includes/providers/class-zeko-ai-agent-provider.php:450
+msgid "Browse the directory"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:210
+msgid "Budget"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:854
+msgid "Building"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:230
+#: includes/integrations/class-zeko-ai-integration-business.php:385
+msgid "Business"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:121
+msgid "Business description"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:600
+#: includes/integrations/class-zeko-ai-integration-business.php:642
+msgid "Businesses"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-shop.php:185
+msgid "Buy"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1283
+msgid "By feature"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:380
+msgid "Call business"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:152
+msgid "Candidate background"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:127
+msgid "Career, expertise, mentoring style…"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:216
+#: includes/integrations/class-zeko-ai-integration-site.php:151
+msgid "Category"
+msgstr ""
+
+#: includes/providers/class-zeko-ai-agent-provider.php:499
+msgid "Check your rewards"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:252
+msgid "Claimed"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:997
+msgid "Clear all"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:997
+msgid "Clear all memory for this member?"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1280
+msgid "Clear all usage data?"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:896
+msgid "Clear provider log"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:896
+msgid "Clear the provider log?"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1280
+msgid "Clear usage log"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:793
+msgid ""
+"Click \"Use as question\" to load a cluster sample into the teach form above."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:444
+#: includes/integrations/class-zeko-ai-integration-business.php:473
+msgid "Closed"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:492
+msgid "Closed now"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:486
+msgid "Closed today"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:81
+#: includes/admin/class-zeko-ai-admin.php:258
+#: includes/admin/class-zeko-ai-admin.php:656
+msgid "Community Agent"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:176
+msgid "Community Agent (offline, self-training)"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:218
+msgid "Company"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:1024
+msgid "Complete your profile"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:511
+msgid "Completed a course"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1154
+#: includes/privacy/class-zeko-ai-privacy.php:181
+msgid "Content"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:131
+msgid "Content generation"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:139
+msgid "Context"
+msgstr ""
+
+#: includes/class-zeko-ai-ajax.php:195 includes/class-zeko-ai-ajax.php:220
+#: includes/class-zeko-ai-rest.php:306
+msgid "Conversation not found."
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:818
+msgid "Copy link"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1291
+#: includes/admin/class-zeko-ai-admin.php:1318
+#: includes/admin/class-zeko-ai-admin.php:1344
+#: includes/privacy/class-zeko-ai-privacy.php:277
+msgid "Cost"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:379
+msgid "Could not save the knowledge entry."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:193
+msgid "Course"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:74
+msgid "Course description"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:398
+#: includes/class-zeko-ai-profile.php:717
+#: includes/integrations/class-zeko-ai-integration-learn.php:214
+#: includes/integrations/class-zeko-ai-integration-learn.php:247
+#: includes/integrations/class-zeko-ai-integration-learn.php:279
+msgid "Courses"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:140
+msgid "Cover letter"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:350
+msgid "Create a mentor profile and start booking sessions."
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:143
+#: includes/privacy/class-zeko-ai-privacy.php:185
+#: includes/privacy/class-zeko-ai-privacy.php:227
+#: includes/privacy/class-zeko-ai-privacy.php:281
+#: includes/privacy/class-zeko-ai-privacy.php:327
+#: includes/privacy/class-zeko-ai-privacy.php:373
+msgid "Created at"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:446
+msgid "Currently closed"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:805
+#: includes/admin/class-zeko-ai-admin.php:909
+msgid "Date"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-love.php:128
+msgid "Date idea"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-love.php:117
+msgid "Date proposal message"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:709
+#: includes/class-zeko-ai-profile.php:366
+#: includes/class-zeko-ai-profile.php:654
+msgid "Dating"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-love.php:100
+msgid "Dating profile bio"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-love.php:146
+#: includes/integrations/class-zeko-ai-integration-love.php:173
+#: includes/integrations/class-zeko-ai-integration-love.php:200
+msgid "Dating profiles"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1315
+msgid "Day"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:182
+#: includes/admin/class-zeko-ai-admin.php:214
+msgid "DeepSeek"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:755
+#: includes/admin/class-zeko-ai-admin.php:826
+#: includes/admin/class-zeko-ai-admin.php:991
+#: includes/admin/class-zeko-ai-admin.php:1205
+msgid "Delete"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1205
+msgid "Delete this entry?"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:755
+msgid "Delete this knowledge entry?"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:139
+msgid "Describe a single service your business offers."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:908
+msgid "Detail"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1198
+msgid "Dismiss"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1105
+msgid "Dismissed"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:840
+msgid ""
+"Download the current knowledge base as a portable JSON file (up to 500 "
+"entries)."
+msgstr ""
+
+#: includes/class-zeko-ai-content.php:323
+msgid "Draft"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:137
+msgid "Draft a clear learning goal for a mentorship session."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:75
+msgid "Draft a compelling course description from rough notes."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-love.php:118
+msgid "Draft a friendly message to propose a date."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:110
+msgid "Draft a helpful, well-structured answer."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:134
+msgid "Draft a persuasive proposal for a project."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-shop.php:81
+msgid "Draft a sales-focused product description."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:141
+msgid "Draft a tailored cover letter for a job application."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:120
+msgid "Draft notes"
+msgstr ""
+
+#: includes/class-zeko-ai-web-search.php:52
+msgid "DuckDuckGo (no key)"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:292
+msgid ""
+"DuckDuckGo needs no key and works immediately. Google, Bing, Brave and "
+"Serper each need an API key from their dashboard; without the required key "
+"that provider simply returns no results. Search results are cached briefly "
+"and never stored permanently."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:164
+msgid "Duration"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:516
+msgid "Earned an achievement"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:285
+msgid "Email"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:263
+msgid ""
+"Email the admin when the agent repairs its data or a provider fails "
+"(throttled)"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:260
+msgid "Enable self-training (log queries, reinforce used knowledge)"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:244
+msgid "Enabled features"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:187
+msgid "Enroll"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:510
+msgid "Enrolled in a course"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1039
+msgid "Entry approved."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1051
+msgid "Entry deleted."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1047
+msgid "Entry dismissed."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1043
+msgid "Entry flagged."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1035
+msgid "Entry not found."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:147
+#: includes/admin/class-zeko-ai-admin.php:1267
+msgid "Estimated cost"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:906
+msgid "Event"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:210
+msgid "Expertise"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:841
+msgid "Export knowledge"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:968
+msgid "Fact"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:953
+msgid ""
+"Facts the Community Agent remembers per member (names, interests, "
+"preferences, goals). This data personalizes search and recommendations and "
+"can be deleted at any time."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:885
+msgid "Failover chain"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1287
+#: includes/privacy/class-zeko-ai-privacy.php:257
+msgid "Feature"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:246
+#: includes/integrations/class-zeko-ai-integration-site.php:159
+msgid "Featured"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1100
+msgid "Filter:"
+msgstr ""
+
+#: includes/providers/class-zeko-ai-agent-provider.php:471
+msgid "Find a mentor"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1103
+msgid "Flagged"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:254
+msgid "Floating widget"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:309
+msgid "Followers"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:707
+#: includes/class-zeko-ai-profile.php:383
+#: includes/class-zeko-ai-profile.php:679
+msgid "Freelance"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:244
+msgid "Freelance project"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:267
+#: includes/integrations/class-zeko-ai-integration-freelance.php:302
+#: includes/integrations/class-zeko-ai-integration-freelance.php:336
+msgid "Freelance projects"
+msgstr ""
+
+#: includes/class-zeko-ai-radar.php:177
+msgid "Fresh opportunities picked just for you"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:450
+msgid "Fri"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:700
+#: includes/admin/class-zeko-ai-admin.php:783
+msgid "General"
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:179
+msgid "Generate"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:92
+msgid "Generate a bulleted learning-outcomes list."
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:64
+msgid "Generate draft"
+msgstr ""
+
+#: includes/class-zeko-ai-writer-ui.php:51
+msgid "Generate with AI"
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:63
+msgid "Generating…"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:1038
+msgid "Get started"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:856
+msgid "Getting started"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:124
+msgid "Goal, deliverables, budget range, timeline…"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:280
+msgid "Google API key"
+msgstr ""
+
+#: includes/class-zeko-ai-web-search.php:53
+msgid "Google Custom Search"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:180
+#: includes/admin/class-zeko-ai-admin.php:212
+msgid "Google Gemini"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:282
+msgid "Google Search Engine ID (cx)"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:181
+#: includes/admin/class-zeko-ai-admin.php:213
+msgid "Groq"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:851
+msgid "Growing"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:91
+msgid "Health"
+msgstr ""
+
+#. translators: %d: number of recommendations.
+#: includes/class-zeko-ai-radar.php:91
+#, php-format
+msgid ""
+"Here is your Zeko radar: %d fresh recommendations based on your activity "
+"across the ecosystem.\n"
+"\n"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:216
+msgid "Hourly rate"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:411
+msgid "Hours not listed"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:498
+msgid "Hours not listed for today"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1151
+msgid "ID"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:835
+msgid "Import / export knowledge"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:847
+msgid "Import JSON file"
+msgstr ""
+
+#. translators: 1: inserted, 2: updated, 3: skipped.
+#: includes/admin/class-zeko-ai-admin.php:545
+#, php-format
+msgid "Import complete — %1$d inserted, %2$d updated, %3$d skipped."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:538
+msgid "Import failed: the JSON could not be parsed."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:857
+msgid "Import knowledge"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-shop.php:163
+msgid "In stock"
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:65
+msgid "Insert into field"
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:67
+msgid "Inserted and copied to clipboard — paste it into the editor."
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:66
+msgid "Inserted into the field."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:162
+msgid "Instructor"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:774
+#: includes/admin/class-zeko-ai-admin.php:804
+#: includes/privacy/class-zeko-ai-privacy.php:361
+msgid "Intent"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-love.php:108
+msgid "Interests, lifestyle, what they are looking for…"
+msgstr ""
+
+#: includes/class-zeko-ai-ajax.php:449
+msgid "Invalid vote."
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:315
+msgid "Item ID"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:311
+msgid "Item type"
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:220
+msgid "JavaScript is required for Zeko AI features."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:256
+msgid "Job"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:123
+msgid "Job description"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:146
+msgid "Job title"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:703
+#: includes/integrations/class-zeko-ai-integration-jobs.php:296
+#: includes/integrations/class-zeko-ai-integration-jobs.php:325
+#: includes/integrations/class-zeko-ai-integration-jobs.php:359
+msgid "Jobs"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:503
+#: includes/class-zeko-ai-profile.php:504
+msgid "Joined Zeko"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:215
+msgid "Key"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:122
+msgid "Key points you want to cover…"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:664
+msgid "Knowledge entries"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:410
+msgid "Knowledge entry deleted."
+msgstr ""
+
+#: includes/class-zeko-ai-ajax.php:454 includes/class-zeko-ai-rest.php:423
+msgid "Knowledge entry not found."
+msgstr ""
+
+#. translators: 1: knowledge entry id.
+#: includes/admin/class-zeko-ai-admin.php:377
+#, php-format
+msgid "Knowledge saved (entry #%1$d). The agent will reuse this answer."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1311
+msgid "Last 14 days"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:704
+msgid "Learn"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:727
+msgid "Learned knowledge"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:231
+msgid "Leave as-is to use the default endpoint."
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:515
+msgid "Left a review"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:163
+msgid "Level"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:817
+msgid "Link copied!"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:219
+msgid "Location"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:505
+msgid "Logged in"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:514
+msgid "Made a friend"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:820
+msgid "Mark answered"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:290
+msgid "Max results"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:967
+msgid "Member"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:99
+#: includes/admin/class-zeko-ai-admin.php:948
+msgid "Member Memory"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:628
+msgid "Member memory cleared."
+msgstr ""
+
+#. translators: %s: registration date
+#: includes/class-zeko-ai-profile.php:770
+#, php-format
+msgid "Member since %s"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:100
+msgid "Memory"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:958
+msgid "Memory entries"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:602
+msgid "Memory entry deleted."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:708
+#: includes/integrations/class-zeko-ai-integration-mentor.php:238
+msgid "Mentor"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:119
+msgid "Mentor bio"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:332
+msgid "Mentor bios"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:349
+#: includes/class-zeko-ai-profile.php:627
+msgid "Mentoring"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:261
+#: includes/integrations/class-zeko-ai-integration-mentor.php:297
+msgid "Mentors"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:136
+msgid "Mentorship goal"
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:238
+msgid "Message"
+msgstr ""
+
+#: includes/class-zeko-ai-ajax.php:446
+msgid "Missing knowledge entry."
+msgstr ""
+
+#: includes/class-zeko-ai-ajax.php:263
+msgid "Missing preset."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:175
+msgid "Mock (offline, deterministic)"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:369
+msgid "Mode"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:265
+msgid "Model"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:64
+#: includes/admin/class-zeko-ai-admin.php:134
+#: includes/admin/class-zeko-ai-admin.php:236
+msgid "Moderation"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:697
+#: includes/admin/class-zeko-ai-admin.php:736
+msgid "Module"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:450
+msgid "Mon"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-site.php:182
+msgid "More articles"
+msgstr ""
+
+#: includes/class-zeko-ai-ecosystem.php:331
+msgid "My AI conversations"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-shop.php:186
+msgid "My orders"
+msgstr ""
+
+#: includes/class-zeko-ai-ecosystem.php:343
+msgid "My recommendations"
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:97
+msgid "New chat"
+msgstr ""
+
+#: includes/class-zeko-ai-assistant.php:43
+msgid "New conversation"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:769
+msgid ""
+"No clusters yet. Once a few unanswered queries share an intent, this list "
+"highlights the highest-impact topics to teach first."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1146
+msgid "No entries match this filter."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:901
+msgid "No failures recorded. Every request in the current chain is healthy."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:729
+msgid "No knowledge yet. Teach your first FAQ above."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:962
+msgid ""
+"No memory stored yet. Facts are captured when members share them in the "
+"assistant chat."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:798
+msgid "No unanswered queries recorded. Great — nothing to teach right now."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1323
+msgid "No usage in this window."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1296
+#: includes/admin/class-zeko-ai-admin.php:1349
+msgid "No usage recorded yet."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-shop.php:91
+msgid "Notes"
+msgstr ""
+
+#: includes/class-zeko-ai-ajax.php:412
+msgid "Nothing to check."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:666
+#: includes/admin/class-zeko-ai-admin.php:667
+#: includes/admin/class-zeko-ai-admin.php:668
+#: includes/admin/class-zeko-ai-admin.php:669
+msgid "Off"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:666
+#: includes/admin/class-zeko-ai-admin.php:667
+#: includes/admin/class-zeko-ai-admin.php:668
+#: includes/admin/class-zeko-ai-admin.php:669
+msgid "On"
+msgstr ""
+
+#: zeko-ai.php:344
+msgid "Once Weekly"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:192
+msgid "Only needed when the provider is OpenAI. Stored in options."
+msgstr ""
+
+#: includes/providers/class-zeko-ai-agent-provider.php:506
+msgid "Open AI Search"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:492
+msgid "Open now"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-site.php:177
+msgid "Open page"
+msgstr ""
+
+#: includes/providers/class-zeko-ai-agent-provider.php:513
+msgid "Open recommendations"
+msgstr ""
+
+#: includes/class-zeko-ai-ecosystem.php:341
+msgid "Open the AI assistant"
+msgstr ""
+
+#. translators: %s: module label, e.g. Q&A
+#: includes/class-zeko-ai-profile.php:1080
+#, php-format
+msgid "Open your %s profile"
+msgstr ""
+
+#: includes/providers/class-zeko-ai-agent-provider.php:478
+msgid "Open your matches"
+msgstr ""
+
+#: includes/providers/class-zeko-ai-agent-provider.php:492
+msgid "Open your profile"
+msgstr ""
+
+#: includes/class-zeko-ai-radar.php:126
+msgid "Open your recommendations anytime to refresh this list."
+msgstr ""
+
+#: includes/providers/class-zeko-ai-agent-provider.php:485
+msgid "Open your wallet"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:177
+msgid "OpenAI"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:189
+msgid "OpenAI API key"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:196
+msgid "OpenAI model"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:179
+#: includes/admin/class-zeko-ai-admin.php:211
+msgid "OpenRouter"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:297
+msgid "Opening hours"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:851
+msgid "Or paste JSON"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:542
+msgid "Overview"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:855
+msgid "Overwrite existing entries with the same question"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-site.php:189
+msgid "Page"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:308
+#: includes/admin/class-zeko-ai-admin.php:352
+#: includes/admin/class-zeko-ai-admin.php:400
+#: includes/admin/class-zeko-ai-admin.php:424
+#: includes/admin/class-zeko-ai-admin.php:448
+#: includes/admin/class-zeko-ai-admin.php:478
+#: includes/admin/class-zeko-ai-admin.php:503
+#: includes/admin/class-zeko-ai-admin.php:570
+#: includes/admin/class-zeko-ai-admin.php:592
+#: includes/admin/class-zeko-ai-admin.php:616
+#: includes/admin/class-zeko-ai-admin.php:1018
+#: includes/admin/class-zeko-ai-admin.php:1226
+msgid "Permission denied."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:273
+msgid "Phone"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:238
+msgid "Place a bid"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:512
+msgid "Placed a bid on a project"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:321
+msgid "Plan"
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:83
+msgid "Please log in to chat with the Zeko assistant."
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:137
+msgid "Please log in to see personalized recommendations."
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:166
+msgid "Please log in to use the AI writer."
+msgstr ""
+
+#: includes/class-zeko-ai-ajax.php:98 includes/class-zeko-ai-rest.php:224
+msgid "Please type a message."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:221
+msgid "Posted"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:508
+msgid "Posted a job"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:165
+#: includes/integrations/class-zeko-ai-integration-shop.php:157
+msgid "Price"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:737
+msgid "Priority"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:720
+msgid "Priority (0.1–10)"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-shop.php:191
+msgid "Product"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-shop.php:80
+msgid "Product description"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-shop.php:86
+msgid "Product name"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:151
+msgid "Profile not found."
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:889
+msgid "Profile sections"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:315
+msgid "Profile views"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:116
+msgid "Project brief"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:139
+msgid "Project summary"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:172
+#: includes/admin/class-zeko-ai-admin.php:273
+#: includes/admin/class-zeko-ai-admin.php:907
+#: includes/privacy/class-zeko-ai-privacy.php:261
+msgid "Provider"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:90
+#: includes/admin/class-zeko-ai-admin.php:881
+msgid "Provider Health"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:578
+msgid "Provider log cleared."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:312
+msgid "Provider test:"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:399
+msgid "Publish your first course to teach the community."
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:384
+msgid "Publish your portfolio to start receiving project bids."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-site.php:142
+msgid "Published"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:629
+msgid "Published mentor profile"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:705
+#: includes/class-zeko-ai-profile.php:339
+#: includes/class-zeko-ai-profile.php:596
+#: includes/integrations/class-zeko-ai-integration-qa.php:247
+#: includes/integrations/class-zeko-ai-integration-qa.php:280
+msgid "Q&A"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:313
+msgid "Q&A questions"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:803
+#: includes/privacy/class-zeko-ai-privacy.php:357
+msgid "Query"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:464
+msgid "Query marked as answered."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:434
+msgid "Query removed from the log."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:689
+#: includes/admin/class-zeko-ai-admin.php:734
+#: includes/integrations/class-zeko-ai-integration-qa.php:213
+#: includes/integrations/class-zeko-ai-integration-qa.php:226
+msgid "Question"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:92
+msgid "Question draft"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:303
+msgid "Rating"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1184
+msgid "Re-review"
+msgstr ""
+
+#. translators: 1: new decision.
+#: includes/admin/class-zeko-ai-admin.php:1033
+#, php-format
+msgid "Re-reviewed with AI. New decision: %1$s"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-site.php:177
+msgid "Read article"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:323
+msgid "Reason"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:899
+msgid "Recent failures"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:977
+msgid "Recently active"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:133
+#: includes/class-zeko-ai-ecosystem.php:300
+msgid "Recommendations"
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:150
+msgid "Refresh recommendations"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:146
+msgid "Relevant skills and past work…"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1264
+#: includes/admin/class-zeko-ai-admin.php:1288
+#: includes/admin/class-zeko-ai-admin.php:1316
+#: includes/admin/class-zeko-ai-admin.php:1342
+msgid "Requests"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:886
+msgid ""
+"Requests try providers in this order. When one throws, the next is used "
+"automatically and the failure is logged below."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:711
+#: includes/class-zeko-ai-profile.php:812
+msgid "Rewards"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:177
+msgid "Role"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:131
+msgid "Role title, what the person will do, who it is for…"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:142
+msgid "Rough idea"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:234
+msgid "Salary"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:776
+msgid "Sample query"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:450
+msgid "Sat"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:724
+msgid "Save knowledge"
+msgstr ""
+
+#: includes/class-zeko-ai-ecosystem.php:332
+msgid "Saved recommendations"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:319
+msgid "Score"
+msgstr ""
+
+#: includes/class-zeko-ai-ecosystem.php:291
+msgid "Search"
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:122
+msgid "Search jobs, courses, questions, products, projects and mentors…"
+msgstr ""
+
+#: includes/class-zeko-ai-ajax.php:328
+msgid "Search term is too short."
+msgstr ""
+
+#: includes/class-zeko-ai-ecosystem.php:342
+msgid "Search the ecosystem"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:361
+msgid "See active jobs"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:363
+msgid "See opening hours"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:357
+msgid "See products"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:354
+msgid "See services"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:666
+msgid "Self-training"
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:239
+msgid "Send"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:264
+msgid "Send the weekly radar digest email to active members"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:99
+msgid "Separate each topic with a new line"
+msgstr ""
+
+#: includes/class-zeko-ai-web-search.php:56
+msgid "Serper (Google)"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:288
+msgid "Serper API key"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:138
+msgid "Service description"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:144
+msgid "Service name"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:343
+msgid "Services"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:367
+msgid "Set up your dating profile so matches can find you."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-love.php:123
+msgid "Shared interest"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:706
+#: includes/integrations/class-zeko-ai-integration-shop.php:212
+#: includes/integrations/class-zeko-ai-integration-shop.php:245
+msgid "Shop"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-shop.php:277
+msgid "Shop products"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:255
+msgid "Show the floating AI assistant button on the front-end"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:154
+msgid "Skills, experience, projects…"
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:61
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:970
+#: includes/admin/class-zeko-ai-admin.php:1153
+#: includes/privacy/class-zeko-ai-privacy.php:223
+msgid "Source"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1114
+msgid "Sources:"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:249
+msgid "Sponsored"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:513
+msgid "Started a project"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:222
+#: includes/integrations/class-zeko-ai-integration-shop.php:169
+msgid "Status"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:359
+msgid "Submit a review"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:777
+msgid "Suggest"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:450
+msgid "Sun"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:683
+msgid "Teach the agent"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:265
+msgid ""
+"Teach the agent Q&A entries and review unanswered queries under the Agent "
+"screen. Starter Q&A is seeded automatically on the first admin visit."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:764
+msgid "Teaching gap suggestions"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:164
+msgid "Test provider"
+msgstr ""
+
+#: includes/class-zeko-ai-rest.php:248
+msgid "The AI service is unavailable right now."
+msgstr ""
+
+#: includes/class-zeko-ai-ajax.php:528
+msgid "The AI service is unavailable right now. Please try again in a moment."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:680
+msgid ""
+"The Community Agent answers questions from real Zeko data (jobs, courses, "
+"Q&A, shop, freelance, mentor, dating, wallet, rewards) with no API key. "
+"Teach it FAQ entries below; every unanswered question is logged so you can "
+"fill the gaps."
+msgstr ""
+
+#: includes/class-zeko-ai.php:535
+msgid "The assistant that knows the whole site"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:115
+msgid "The question"
+msgstr ""
+
+#: includes/providers/class-zeko-ai-agent-provider.php:1401
+msgid ""
+"These come from an outside search engine, so please verify them before "
+"relying on them."
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:60
+msgid "Thinking…"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:948
+msgid "This member has no public module profiles yet."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:239
+msgid ""
+"Threshold (0–1) for flagging. Content scoring at or above it is flagged for "
+"review."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:450
+msgid "Thu"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:135
+msgid "Title"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1317
+#: includes/admin/class-zeko-ai-admin.php:1343
+msgid "Tokens"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:145
+#: includes/admin/class-zeko-ai-admin.php:1265
+#: includes/admin/class-zeko-ai-admin.php:1289
+#: includes/privacy/class-zeko-ai-privacy.php:269
+msgid "Tokens in"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:146
+#: includes/admin/class-zeko-ai-admin.php:1266
+#: includes/admin/class-zeko-ai-admin.php:1290
+#: includes/privacy/class-zeko-ai-privacy.php:273
+msgid "Tokens out"
+msgstr ""
+
+#. translators: %d: number of seconds to wait.
+#: includes/class-zeko-ai-ajax.php:553
+#, php-format
+msgid "Too many requests. Please try again in %d second(s)."
+msgstr ""
+
+#: includes/class-zeko-ai-rest.php:186 includes/class-zeko-ai-rest.php:231
+#: includes/class-zeko-ai-rest.php:351
+msgid "Too many requests. Please try again in a moment."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1337
+msgid "Top users"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:82
+msgid "Topic, audience, outcomes…"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:97
+msgid "Topics"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:450
+msgid "Tue"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:117
+msgid "Turn rough ideas into a clear freelance project brief."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:93
+msgid "Turn rough notes into a clear, answerable question."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:122
+msgid "Turn rough notes into a polished business profile description."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:124
+msgid "Turn rough notes into a polished job description."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:220
+#: includes/integrations/class-zeko-ai-integration-site.php:127
+msgid "Type"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:775
+msgid "Unanswered"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:665
+msgid "Unanswered queries"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:796
+msgid "Unanswered queries (learning gaps)"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:132
+msgid "Unified search"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1054
+msgid "Unknown action."
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:147
+msgid "Updated at"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:204
+msgid "Upvotes"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1234
+msgid "Usage log cleared."
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:787
+msgid "Use as question"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:738
+msgid "Used"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:1341
+msgid "User"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:969
+#: includes/privacy/class-zeko-ai-privacy.php:219
+msgid "Value"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:243
+msgid "Verified"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-learn.php:186
+msgid "View course"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-shop.php:184
+msgid "View in shop"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:249
+msgid "View job"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:373
+msgid "View on Google Maps"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:351
+msgid "View page"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:231
+msgid "View profile"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:237
+msgid "View project"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:219
+msgid "View question"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:192
+msgid "Views"
+msgstr ""
+
+#: includes/providers/class-zeko-ai-agent-provider.php:464
+msgid "Visit the shop"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:376
+msgid "Visit website"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:710
+msgid "Wallet"
+msgstr ""
+
+#: includes/class-zeko-ai-search.php:451
+msgid "Web"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:270
+#: includes/admin/class-zeko-ai-admin.php:669
+msgid "Web search"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:293
+msgid ""
+"Web search is off by default: enabling it sends member queries to the chosen "
+"external search engine, so activate it only as an explicit opt-in."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:279
+msgid "Website"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:450
+msgid "Wed"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-qa.php:100
+msgid "What are you trying to do? What have you tried?"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-shop.php:93
+msgid "What does it do? Who is it for?"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:152
+msgid "What the service includes, duration, inclusions…"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:129
+msgid "What you offer, who it is for, what makes it special…"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:291
+msgid "WhatsApp"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:668
+msgid "World knowledge"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:120
+msgid "Write a friendly mentor bio from your background."
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-love.php:101
+msgid "Write an authentic, friendly dating bio."
+msgstr ""
+
+#: includes/class-zeko-ai-ajax.php:457 includes/class-zeko-ai-rest.php:426
+msgid "You already rated this answer."
+msgstr ""
+
+#: includes/class-zeko-ai-ajax.php:89
+msgid "You must be logged in to chat."
+msgstr ""
+
+#: includes/class-zeko-ai-ajax.php:138 includes/class-zeko-ai-ajax.php:157
+#: includes/class-zeko-ai-ajax.php:188 includes/class-zeko-ai-ajax.php:213
+#: includes/class-zeko-ai-ajax.php:252 includes/class-zeko-ai-ajax.php:292
+#: includes/class-zeko-ai-ajax.php:369 includes/class-zeko-ai-ajax.php:405
+#: includes/class-zeko-ai-ajax.php:438 includes/class-zeko-ai-ajax.php:535
+msgid "You must be logged in."
+msgstr ""
+
+#. translators: %s: site name.
+#: includes/class-zeko-ai-radar.php:164
+#, php-format
+msgid "Your Zeko radar — %s"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-mentor.php:125
+msgid "Your background"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-freelance.php:144
+msgid "Your experience"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:127
+#: includes/integrations/class-zeko-ai-integration-business.php:150
+#: includes/integrations/class-zeko-ai-integration-freelance.php:122
+#: includes/integrations/class-zeko-ai-integration-jobs.php:129
+#: includes/integrations/class-zeko-ai-integration-learn.php:80
+#: includes/integrations/class-zeko-ai-integration-qa.php:98
+msgid "Your notes"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:1024
+msgid "Your profile is complete"
+msgstr ""
+
+#: includes/public/class-zeko-ai-shortcodes.php:205
+msgid "Zeko"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:52
+#: includes/admin/class-zeko-ai-admin.php:53
+#: includes/admin/class-zeko-ai-admin.php:139
+#: includes/class-zeko-ai-ecosystem.php:82
+msgid "Zeko AI"
+msgstr ""
+
+#: includes/class-zeko-ai-radar.php:176
+msgid "Zeko AI Radar"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:44
+#: includes/privacy/class-zeko-ai-privacy.php:57
+msgid "Zeko AI data"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:510
+msgid ""
+"Zeko AI provider log entries carry no user identifier, so nothing from that "
+"log was erased."
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:353
+msgid "Zeko AI — Agent queries"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:131
+msgid "Zeko AI — Conversations"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:211
+msgid "Zeko AI — Memory"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:173
+msgid "Zeko AI — Messages"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:307
+msgid "Zeko AI — Recommendations"
+msgstr ""
+
+#: includes/privacy/class-zeko-ai-privacy.php:253
+msgid "Zeko AI — Usage"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:183
+msgid "Zeko Cloud (hosted AI credits)"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:986
+msgid "ago"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:146
+msgid "e.g. House call — hair styling"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-jobs.php:148
+msgid "e.g. Junior Web Developer"
+msgstr ""
+
+#: includes/providers/class-zeko-ai-agent-provider.php:1296
+msgctxt "entity type label"
+msgid "item"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:160
+msgid "live API"
+msgstr ""
+
+#: includes/admin/class-zeko-ai-admin.php:160
+msgid "offline mock, no keys required"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:690
+msgid "portfolio items"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:733
+msgid "published courses"
+msgstr ""
+
+#: includes/class-zeko-ai-profile.php:601
+msgid "questions & answers"
+msgstr ""
+
+#: includes/integrations/class-zeko-ai-integration-business.php:235
+#: includes/integrations/class-zeko-ai-integration-business.php:304
+msgid "review"
+msgid_plural "reviews"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: fact label. 2: linked fact value
+#: includes/providers/class-zeko-ai-agent-provider.php:1341
+#, php-format
+msgid "• **%1$s:** %2$s"
+msgstr ""
+

@@ -1,0 +1,122 @@
+REMOTE SERVICES — Zeko AI
+=========================
+
+Zeko AI is the most network-active plugin in the ecosystem. It only talks to
+providers when an administrator configures them; with no keys set, the plugin
+runs fully offline in Mock mode. Every remote endpoint below is HTTPS and
+filterable (zeko_ai_*_endpoint / zeko_ai_*_remote_request) so the destination
+is always auditable and events can be stubbed or suppressed.
+
+-------------------------------------------------------------------------------
+1. Hosted LLM providers (server-side, only when a key is configured)
+-------------------------------------------------------------------------------
+OpenAI
+  POST https://api.openai.com/v1/chat/completions          (chat)
+  POST https://api.openai.com/v1/moderations               (moderation)
+  Header: Authorization: Bearer <api_key>
+  Body  : chat: {model, messages, temperature, max_tokens?}
+          moderations: {model: 'omni-moderation-latest', input: <text>}
+  Code  : includes/providers/class-zeko-ai-openai-provider.php lines 25-28,
+          44, 60-67, 94-109.
+
+Anthropic
+  POST https://api.anthropic.com/v1/messages
+  Headers: x-api-key: <api_key>, anthropic-version: 2023-06-01
+  Body  : {model, max_tokens, messages[], system?, temperature?}
+  Code  : includes/providers/class-zeko-ai-anthropic-provider.php lines 46-56,
+          120-135.
+
+OpenRouter (OpenAI-compatible aggregator)
+  POST https://openrouter.ai/api/v1/chat/completions
+  Headers: Authorization: Bearer <api_key>, HTTP-Referer: <home_url>,
+           X-Title: <blog name>
+  Body  : {model, messages, temperature, max_tokens?}
+  Code  : includes/providers/class-zeko-ai-openrouter-provider.php lines 20-33;
+          shared transport in class-zeko-ai-openai-compat-provider.php
+          lines 138-159.
+
+Google Gemini (OpenAI-compatible surface)
+  POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions
+  Headers: Authorization: Bearer <api_key>, x-goog-api-key: <api_key>
+  Body  : {model, messages, temperature, max_tokens?}
+  Code  : includes/providers/class-zeko-ai-gemini-provider.php lines 21-33.
+
+Groq
+  POST https://api.groq.com/openai/v1/chat/completions
+  Header: Authorization: Bearer <api_key>  |  Body: as OpenAI-compat
+  Code  : includes/providers/class-zeko-ai-groq-provider.php lines 19-20.
+
+DeepSeek
+  POST https://api.deepseek.com/v1/chat/completions
+  Header: Authorization: Bearer <api_key>  |  Body: as OpenAI-compat
+  Code  : includes/providers/class-zeko-ai-deepseek-provider.php lines 19-20.
+
+Zeko Cloud (Zeko's own hosted LLM, billed against license credits)
+  POST <cloud_server setting, else the Zeko license server>/   with
+       ?zeko_license_action=<complete|moderate>
+  Body  : {messages|prompt|text, temperature, max_tokens?} merged with
+          key (license key), site (home_url), site_token, model
+  Code  : includes/providers/class-zeko-ai-cloud-provider.php lines 35-59,
+          151-173.
+
+Data sent to ALL LLM providers: the provider API key, the conversation
+prompts/messages (and, if the administrator enabled them, personal
+memory/recap and personal-RAG context), and the selected model. The providers
+receive user content; they receive no credentials of Zeko's own other than the
+site's key for cloud mode. When a provider is used: a user action (chat,
+site-search, writer, moderation) that reaches that provider in the failover
+facet.
+
+-------------------------------------------------------------------------------
+2. Web search providers (server-side, only when web search is enabled)
+-------------------------------------------------------------------------------
+Keyless DuckDuckGo (default)
+  GET https://html.duckduckgo.com/html/?q=<query>
+  User-Agent: ZekoCommunityAgent/1.0 (+https://testzeko.test)
+  Code  : includes/class-zeko-ai-web-search.php lines 163-166, 404-410.
+Google Custom Search (key + engine id required)
+  GET https://www.googleapis.com/customsearch/v1?key=<api_key>&cx=<engine_id>&q=<query>&num=<limit>
+  Code  : lines 232-247.
+Bing Web Search (key required)
+  GET https://api.bing.microsoft.com/v7.0/search?q=<query>&count=<limit>
+  Header: Ocp-Apim-Subscription-Key: <key>
+  Code  : lines 270-284.
+Brave Search (key required)
+  GET https://api.search.brave.com/res/v1/web/search?q=<query>&count=<limit>
+  Header: X-Subscription-Token: <key>
+  Code  : lines 305-319.
+Serper / Google (key required)
+  POST https://google.serper.dev/search
+  Header: X-API-KEY: <key>, Content-Type: application/json
+  Body  : {"q": <query>, "num": <limit>}
+  Code  : lines 340-369.
+
+Data sent: the search query only. Results are cached in a transient for up to
+1 hour (filterable) and never stored permanently.
+
+-------------------------------------------------------------------------------
+3. Wikipedia world-knowledge lookups (server-side, opt-in setting)
+-------------------------------------------------------------------------------
+Only when the administrator enables the agent's "world knowledge" setting
+(agent_world_knowledge):
+  GET https://en.wikipedia.org/api/rest_v1/page/summary/<title>
+  GET https://en.wikipedia.org/w/api.php?action=opensearch&search=<title>&limit=1&format=json
+  (the second is only called when a summary returns 404, to resolve the title)
+  Code  : includes/providers/class-zeko-ai-agent-provider.php lines 1427-1429
+          and 1466-1467 (fetch_world_knowledge lines 1371-1413).
+Data sent: an extracted page-title guess from the user's question (max 120
+chars). Results cached 300 s (filterable).
+
+-------------------------------------------------------------------------------
+4. Client-side external links
+-------------------------------------------------------------------------------
+Google Maps: the business integration renders an action link
+  https://www.google.com/maps/search/?api=1&query=<name+address>
+  (includes/integrations/class-zeko-ai-integration-business.php line 314).
+  This is a plain hyperlink opened in the visitor's browser; Zeko AI never
+  sends the address to Google over the server. YouTube/Vimeo embeds handled by
+  other Zeko modules are documented in their own REMOTE-SERVICES.txt files.
+
+Privacy/opt-out: each provider is toggled in Zeko AI > Settings; the web-search
+feature has a global 'zeko_ai_web_search_http' filter to cut outbound HTTP
+while keeping settings intact.
