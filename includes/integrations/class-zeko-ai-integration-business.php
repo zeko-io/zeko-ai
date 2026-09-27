@@ -477,9 +477,9 @@ class Zeko_AI_Integration_Business extends Zeko_AI_Integration {
 		} catch ( Exception $e ) {
 			$zone = null;
 		}
-		$now = null === $zone ? time() : time() + $zone->getOffset( new DateTime( 'now', new DateTimeZone( 'UTC' ) ) );
-		$dow = (int) gmdate( 'w', $now );
-		$hm  = (string) gmdate( 'H:i', $now );
+		$zone_fmt = $zone instanceof DateTimeZone ? $zone : new DateTimeZone( 'UTC' );
+		$dow      = (int) wp_date( 'w', time(), $zone_fmt );
+		$hm       = (string) wp_date( 'H:i', time(), $zone_fmt );
 
 		$by_dow = array();
 		foreach ( $rows as $row ) {

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zeko-ai 0.5.1\n"
 "Report-Msgid-Bugs-To: https://zeko.io\n"
-"POT-Creation-Date: 2026-09-25 08:13+00:00\n"
+"POT-Creation-Date: 2026-09-27 15:06+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Domain: zeko-ai\n"
 "X-Generator: zeko make-pot\n"
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:91
+#: includes/integrations/class-zeko-ai-integration-learn.php:117
 msgid "\"What you will learn\" list"
 msgstr ""
 
@@ -133,7 +133,7 @@ msgstr ""
 msgid "AI"
 msgstr ""
 
-#: zeko-ai.php:193
+#: zeko-ai.php:196
 msgid "AI Assistant"
 msgstr ""
 
@@ -145,11 +145,11 @@ msgstr ""
 msgid "AI Moderation Queue"
 msgstr ""
 
-#: zeko-ai.php:201
+#: zeko-ai.php:204
 msgid "AI Recommendations"
 msgstr ""
 
-#: zeko-ai.php:197
+#: zeko-ai.php:200
 msgid "AI Search"
 msgstr ""
 
@@ -170,7 +170,7 @@ msgstr ""
 msgid "About them"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:180
+#: includes/integrations/class-zeko-ai-integration-learn.php:206
 msgid "About this course"
 msgstr ""
 
@@ -182,7 +182,7 @@ msgstr ""
 msgid "About this page"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-shop.php:178
+#: includes/integrations/class-zeko-ai-integration-shop.php:204
 msgid "About this product"
 msgstr ""
 
@@ -216,7 +216,7 @@ msgid ""
 "fallback when nothing on Zeko matches)"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:267
+#: includes/integrations/class-zeko-ai-integration-business.php:289
 msgid "Address"
 msgstr ""
 
@@ -251,11 +251,11 @@ msgstr ""
 msgid "Answer"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:109
+#: includes/integrations/class-zeko-ai-integration-qa.php:135
 msgid "Answer draft"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:220
+#: includes/integrations/class-zeko-ai-integration-qa.php:246
 msgid "Answer it"
 msgstr ""
 
@@ -267,7 +267,7 @@ msgstr ""
 msgid "Answered a question"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:198
+#: includes/integrations/class-zeko-ai-integration-qa.php:224
 msgid "Answers"
 msgstr ""
 
@@ -324,8 +324,8 @@ msgstr ""
 msgid "Ask Zeko…"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:360
-#: includes/integrations/class-zeko-ai-integration-qa.php:221
+#: includes/integrations/class-zeko-ai-integration-business.php:382
+#: includes/integrations/class-zeko-ai-integration-qa.php:247
 msgid "Ask a question"
 msgstr ""
 
@@ -337,7 +337,7 @@ msgstr ""
 msgid "Ask or answer your first question to start building reputation."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:186
+#: includes/integrations/class-zeko-ai-integration-qa.php:212
 msgid "Asked"
 msgstr ""
 
@@ -412,7 +412,7 @@ msgstr ""
 msgid "Brave Search"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:188
+#: includes/integrations/class-zeko-ai-integration-learn.php:214
 #: includes/providers/class-zeko-ai-agent-provider.php:436
 msgid "Browse courses"
 msgstr ""
@@ -443,21 +443,21 @@ msgstr ""
 msgid "Building"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:230
-#: includes/integrations/class-zeko-ai-integration-business.php:385
+#: includes/integrations/class-zeko-ai-integration-business.php:252
+#: includes/integrations/class-zeko-ai-integration-business.php:407
 msgid "Business"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:121
+#: includes/integrations/class-zeko-ai-integration-business.php:143
 msgid "Business description"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:600
-#: includes/integrations/class-zeko-ai-integration-business.php:642
+#: includes/integrations/class-zeko-ai-integration-business.php:622
+#: includes/integrations/class-zeko-ai-integration-business.php:664
 msgid "Businesses"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-shop.php:185
+#: includes/integrations/class-zeko-ai-integration-shop.php:211
 msgid "Buy"
 msgstr ""
 
@@ -465,7 +465,7 @@ msgstr ""
 msgid "By feature"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:380
+#: includes/integrations/class-zeko-ai-integration-business.php:402
 msgid "Call business"
 msgstr ""
 
@@ -486,7 +486,7 @@ msgstr ""
 msgid "Check your rewards"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:252
+#: includes/integrations/class-zeko-ai-integration-business.php:274
 msgid "Claimed"
 msgstr ""
 
@@ -519,16 +519,16 @@ msgid ""
 "Click \"Use as question\" to load a cluster sample into the teach form above."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:444
-#: includes/integrations/class-zeko-ai-integration-business.php:473
+#: includes/integrations/class-zeko-ai-integration-business.php:466
+#: includes/integrations/class-zeko-ai-integration-business.php:495
 msgid "Closed"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:492
+#: includes/integrations/class-zeko-ai-integration-business.php:514
 msgid "Closed now"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:486
+#: includes/integrations/class-zeko-ai-integration-business.php:508
 msgid "Closed today"
 msgstr ""
 
@@ -587,19 +587,19 @@ msgstr ""
 msgid "Could not save the knowledge entry."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:193
+#: includes/integrations/class-zeko-ai-integration-learn.php:219
 msgid "Course"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:74
+#: includes/integrations/class-zeko-ai-integration-learn.php:100
 msgid "Course description"
 msgstr ""
 
 #: includes/class-zeko-ai-profile.php:398
 #: includes/class-zeko-ai-profile.php:717
-#: includes/integrations/class-zeko-ai-integration-learn.php:214
-#: includes/integrations/class-zeko-ai-integration-learn.php:247
+#: includes/integrations/class-zeko-ai-integration-learn.php:243
 #: includes/integrations/class-zeko-ai-integration-learn.php:279
+#: includes/integrations/class-zeko-ai-integration-learn.php:314
 msgid "Courses"
 msgstr ""
 
@@ -620,7 +620,7 @@ msgstr ""
 msgid "Created at"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:446
+#: includes/integrations/class-zeko-ai-integration-business.php:468
 msgid "Currently closed"
 msgstr ""
 
@@ -677,7 +677,7 @@ msgstr ""
 msgid "Delete this knowledge entry?"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:139
+#: includes/integrations/class-zeko-ai-integration-business.php:161
 msgid "Describe a single service your business offers."
 msgstr ""
 
@@ -707,7 +707,7 @@ msgstr ""
 msgid "Draft a clear learning goal for a mentorship session."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:75
+#: includes/integrations/class-zeko-ai-integration-learn.php:101
 msgid "Draft a compelling course description from rough notes."
 msgstr ""
 
@@ -715,7 +715,7 @@ msgstr ""
 msgid "Draft a friendly message to propose a date."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:110
+#: includes/integrations/class-zeko-ai-integration-qa.php:136
 msgid "Draft a helpful, well-structured answer."
 msgstr ""
 
@@ -723,7 +723,7 @@ msgstr ""
 msgid "Draft a persuasive proposal for a project."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-shop.php:81
+#: includes/integrations/class-zeko-ai-integration-shop.php:107
 msgid "Draft a sales-focused product description."
 msgstr ""
 
@@ -731,7 +731,7 @@ msgstr ""
 msgid "Draft a tailored cover letter for a job application."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:120
+#: includes/integrations/class-zeko-ai-integration-qa.php:146
 msgid "Draft notes"
 msgstr ""
 
@@ -747,7 +747,7 @@ msgid ""
 "and never stored permanently."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:164
+#: includes/integrations/class-zeko-ai-integration-learn.php:190
 msgid "Duration"
 msgstr ""
 
@@ -755,7 +755,7 @@ msgstr ""
 msgid "Earned an achievement"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:285
+#: includes/integrations/class-zeko-ai-integration-business.php:307
 msgid "Email"
 msgstr ""
 
@@ -773,7 +773,7 @@ msgstr ""
 msgid "Enabled features"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:187
+#: includes/integrations/class-zeko-ai-integration-learn.php:213
 msgid "Enroll"
 msgstr ""
 
@@ -838,7 +838,7 @@ msgstr ""
 msgid "Feature"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:246
+#: includes/integrations/class-zeko-ai-integration-business.php:268
 #: includes/integrations/class-zeko-ai-integration-site.php:159
 msgid "Featured"
 msgstr ""
@@ -859,7 +859,7 @@ msgstr ""
 msgid "Floating widget"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:309
+#: includes/integrations/class-zeko-ai-integration-business.php:331
 msgid "Followers"
 msgstr ""
 
@@ -883,7 +883,7 @@ msgstr ""
 msgid "Fresh opportunities picked just for you"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:450
+#: includes/integrations/class-zeko-ai-integration-business.php:472
 msgid "Fri"
 msgstr ""
 
@@ -896,7 +896,7 @@ msgstr ""
 msgid "Generate"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:92
+#: includes/integrations/class-zeko-ai-integration-learn.php:118
 msgid "Generate a bulleted learning-outcomes list."
 msgstr ""
 
@@ -967,11 +967,11 @@ msgstr ""
 msgid "Hourly rate"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:411
+#: includes/integrations/class-zeko-ai-integration-business.php:433
 msgid "Hours not listed"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:498
+#: includes/integrations/class-zeko-ai-integration-business.php:520
 msgid "Hours not listed for today"
 msgstr ""
 
@@ -1001,7 +1001,7 @@ msgstr ""
 msgid "Import knowledge"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-shop.php:163
+#: includes/integrations/class-zeko-ai-integration-shop.php:189
 msgid "In stock"
 msgstr ""
 
@@ -1017,7 +1017,7 @@ msgstr ""
 msgid "Inserted into the field."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:162
+#: includes/integrations/class-zeko-ai-integration-learn.php:188
 msgid "Instructor"
 msgstr ""
 
@@ -1075,7 +1075,7 @@ msgstr ""
 msgid "Key"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:122
+#: includes/integrations/class-zeko-ai-integration-qa.php:148
 msgid "Key points you want to cover…"
 msgstr ""
 
@@ -1117,7 +1117,7 @@ msgstr ""
 msgid "Left a review"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:163
+#: includes/integrations/class-zeko-ai-integration-learn.php:189
 msgid "Level"
 msgstr ""
 
@@ -1238,7 +1238,7 @@ msgstr ""
 msgid "Module"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:450
+#: includes/integrations/class-zeko-ai-integration-business.php:472
 msgid "Mon"
 msgstr ""
 
@@ -1250,7 +1250,7 @@ msgstr ""
 msgid "My AI conversations"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-shop.php:186
+#: includes/integrations/class-zeko-ai-integration-shop.php:212
 msgid "My orders"
 msgstr ""
 
@@ -1303,7 +1303,7 @@ msgstr ""
 msgid "No usage recorded yet."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-shop.php:91
+#: includes/integrations/class-zeko-ai-integration-shop.php:117
 msgid "Notes"
 msgstr ""
 
@@ -1325,7 +1325,7 @@ msgstr ""
 msgid "On"
 msgstr ""
 
-#: zeko-ai.php:344
+#: zeko-ai.php:349
 msgid "Once Weekly"
 msgstr ""
 
@@ -1337,7 +1337,7 @@ msgstr ""
 msgid "Open AI Search"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:492
+#: includes/integrations/class-zeko-ai-integration-business.php:514
 msgid "Open now"
 msgstr ""
 
@@ -1392,7 +1392,7 @@ msgstr ""
 msgid "OpenRouter"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:297
+#: includes/integrations/class-zeko-ai-integration-business.php:319
 msgid "Opening hours"
 msgstr ""
 
@@ -1427,7 +1427,7 @@ msgstr ""
 msgid "Permission denied."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:273
+#: includes/integrations/class-zeko-ai-integration-business.php:295
 msgid "Phone"
 msgstr ""
 
@@ -1439,7 +1439,7 @@ msgstr ""
 msgid "Placed a bid on a project"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:321
+#: includes/integrations/class-zeko-ai-integration-business.php:343
 msgid "Plan"
 msgstr ""
 
@@ -1467,8 +1467,8 @@ msgstr ""
 msgid "Posted a job"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:165
-#: includes/integrations/class-zeko-ai-integration-shop.php:157
+#: includes/integrations/class-zeko-ai-integration-learn.php:191
+#: includes/integrations/class-zeko-ai-integration-shop.php:183
 msgid "Price"
 msgstr ""
 
@@ -1480,15 +1480,15 @@ msgstr ""
 msgid "Priority (0.1–10)"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-shop.php:191
+#: includes/integrations/class-zeko-ai-integration-shop.php:217
 msgid "Product"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-shop.php:80
+#: includes/integrations/class-zeko-ai-integration-shop.php:106
 msgid "Product description"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-shop.php:86
+#: includes/integrations/class-zeko-ai-integration-shop.php:112
 msgid "Product name"
 msgstr ""
 
@@ -1500,7 +1500,7 @@ msgstr ""
 msgid "Profile sections"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:315
+#: includes/integrations/class-zeko-ai-integration-business.php:337
 msgid "Profile views"
 msgstr ""
 
@@ -1551,12 +1551,12 @@ msgstr ""
 #: includes/admin/class-zeko-ai-admin.php:705
 #: includes/class-zeko-ai-profile.php:339
 #: includes/class-zeko-ai-profile.php:596
-#: includes/integrations/class-zeko-ai-integration-qa.php:247
-#: includes/integrations/class-zeko-ai-integration-qa.php:280
+#: includes/integrations/class-zeko-ai-integration-qa.php:276
+#: includes/integrations/class-zeko-ai-integration-qa.php:312
 msgid "Q&A"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:313
+#: includes/integrations/class-zeko-ai-integration-qa.php:348
 msgid "Q&A questions"
 msgstr ""
 
@@ -1575,16 +1575,16 @@ msgstr ""
 
 #: includes/admin/class-zeko-ai-admin.php:689
 #: includes/admin/class-zeko-ai-admin.php:734
-#: includes/integrations/class-zeko-ai-integration-qa.php:213
-#: includes/integrations/class-zeko-ai-integration-qa.php:226
+#: includes/integrations/class-zeko-ai-integration-qa.php:239
+#: includes/integrations/class-zeko-ai-integration-qa.php:252
 msgid "Question"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:92
+#: includes/integrations/class-zeko-ai-integration-qa.php:118
 msgid "Question draft"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:303
+#: includes/integrations/class-zeko-ai-integration-business.php:325
 msgid "Rating"
 msgstr ""
 
@@ -1665,7 +1665,7 @@ msgstr ""
 msgid "Sample query"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:450
+#: includes/integrations/class-zeko-ai-integration-business.php:472
 msgid "Sat"
 msgstr ""
 
@@ -1697,19 +1697,19 @@ msgstr ""
 msgid "Search the ecosystem"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:361
+#: includes/integrations/class-zeko-ai-integration-business.php:383
 msgid "See active jobs"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:363
+#: includes/integrations/class-zeko-ai-integration-business.php:385
 msgid "See opening hours"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:357
+#: includes/integrations/class-zeko-ai-integration-business.php:379
 msgid "See products"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:354
+#: includes/integrations/class-zeko-ai-integration-business.php:376
 msgid "See services"
 msgstr ""
 
@@ -1725,7 +1725,7 @@ msgstr ""
 msgid "Send the weekly radar digest email to active members"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:99
+#: includes/integrations/class-zeko-ai-integration-learn.php:125
 msgid "Separate each topic with a new line"
 msgstr ""
 
@@ -1737,15 +1737,15 @@ msgstr ""
 msgid "Serper API key"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:138
+#: includes/integrations/class-zeko-ai-integration-business.php:160
 msgid "Service description"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:144
+#: includes/integrations/class-zeko-ai-integration-business.php:166
 msgid "Service name"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:343
+#: includes/integrations/class-zeko-ai-integration-business.php:365
 msgid "Services"
 msgstr ""
 
@@ -1758,12 +1758,12 @@ msgid "Shared interest"
 msgstr ""
 
 #: includes/admin/class-zeko-ai-admin.php:706
-#: includes/integrations/class-zeko-ai-integration-shop.php:212
-#: includes/integrations/class-zeko-ai-integration-shop.php:245
+#: includes/integrations/class-zeko-ai-integration-shop.php:241
+#: includes/integrations/class-zeko-ai-integration-shop.php:277
 msgid "Shop"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-shop.php:277
+#: includes/integrations/class-zeko-ai-integration-shop.php:312
 msgid "Shop products"
 msgstr ""
 
@@ -1789,7 +1789,7 @@ msgstr ""
 msgid "Sources:"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:249
+#: includes/integrations/class-zeko-ai-integration-business.php:271
 msgid "Sponsored"
 msgstr ""
 
@@ -1798,11 +1798,11 @@ msgid "Started a project"
 msgstr ""
 
 #: includes/integrations/class-zeko-ai-integration-freelance.php:222
-#: includes/integrations/class-zeko-ai-integration-shop.php:169
+#: includes/integrations/class-zeko-ai-integration-shop.php:195
 msgid "Status"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:359
+#: includes/integrations/class-zeko-ai-integration-business.php:381
 msgid "Submit a review"
 msgstr ""
 
@@ -1810,7 +1810,7 @@ msgstr ""
 msgid "Suggest"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:450
+#: includes/integrations/class-zeko-ai-integration-business.php:472
 msgid "Sun"
 msgstr ""
 
@@ -1852,7 +1852,7 @@ msgstr ""
 msgid "The assistant that knows the whole site"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:115
+#: includes/integrations/class-zeko-ai-integration-qa.php:141
 msgid "The question"
 msgstr ""
 
@@ -1876,7 +1876,7 @@ msgid ""
 "review."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:450
+#: includes/integrations/class-zeko-ai-integration-business.php:472
 msgid "Thu"
 msgstr ""
 
@@ -1918,15 +1918,15 @@ msgstr ""
 msgid "Top users"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:82
+#: includes/integrations/class-zeko-ai-integration-learn.php:108
 msgid "Topic, audience, outcomes…"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:97
+#: includes/integrations/class-zeko-ai-integration-learn.php:123
 msgid "Topics"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:450
+#: includes/integrations/class-zeko-ai-integration-business.php:472
 msgid "Tue"
 msgstr ""
 
@@ -1934,11 +1934,11 @@ msgstr ""
 msgid "Turn rough ideas into a clear freelance project brief."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:93
+#: includes/integrations/class-zeko-ai-integration-qa.php:119
 msgid "Turn rough notes into a clear, answerable question."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:122
+#: includes/integrations/class-zeko-ai-integration-business.php:144
 msgid "Turn rough notes into a polished business profile description."
 msgstr ""
 
@@ -1975,7 +1975,7 @@ msgstr ""
 msgid "Updated at"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:204
+#: includes/integrations/class-zeko-ai-integration-qa.php:230
 msgid "Upvotes"
 msgstr ""
 
@@ -2000,15 +2000,15 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:243
+#: includes/integrations/class-zeko-ai-integration-business.php:265
 msgid "Verified"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-learn.php:186
+#: includes/integrations/class-zeko-ai-integration-learn.php:212
 msgid "View course"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-shop.php:184
+#: includes/integrations/class-zeko-ai-integration-shop.php:210
 msgid "View in shop"
 msgstr ""
 
@@ -2016,11 +2016,11 @@ msgstr ""
 msgid "View job"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:373
+#: includes/integrations/class-zeko-ai-integration-business.php:395
 msgid "View on Google Maps"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:351
+#: includes/integrations/class-zeko-ai-integration-business.php:373
 msgid "View page"
 msgstr ""
 
@@ -2032,11 +2032,11 @@ msgstr ""
 msgid "View project"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:219
+#: includes/integrations/class-zeko-ai-integration-qa.php:245
 msgid "View question"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:192
+#: includes/integrations/class-zeko-ai-integration-qa.php:218
 msgid "Views"
 msgstr ""
 
@@ -2044,7 +2044,7 @@ msgstr ""
 msgid "Visit the shop"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:376
+#: includes/integrations/class-zeko-ai-integration-business.php:398
 msgid "Visit website"
 msgstr ""
 
@@ -2067,31 +2067,31 @@ msgid ""
 "external search engine, so activate it only as an explicit opt-in."
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:279
+#: includes/integrations/class-zeko-ai-integration-business.php:301
 msgid "Website"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:450
+#: includes/integrations/class-zeko-ai-integration-business.php:472
 msgid "Wed"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-qa.php:100
+#: includes/integrations/class-zeko-ai-integration-qa.php:126
 msgid "What are you trying to do? What have you tried?"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-shop.php:93
+#: includes/integrations/class-zeko-ai-integration-shop.php:119
 msgid "What does it do? Who is it for?"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:152
+#: includes/integrations/class-zeko-ai-integration-business.php:174
 msgid "What the service includes, duration, inclusions…"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:129
+#: includes/integrations/class-zeko-ai-integration-business.php:151
 msgid "What you offer, who it is for, what makes it special…"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:291
+#: includes/integrations/class-zeko-ai-integration-business.php:313
 msgid "WhatsApp"
 msgstr ""
 
@@ -2137,12 +2137,12 @@ msgstr ""
 msgid "Your experience"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:127
-#: includes/integrations/class-zeko-ai-integration-business.php:150
+#: includes/integrations/class-zeko-ai-integration-business.php:149
+#: includes/integrations/class-zeko-ai-integration-business.php:172
 #: includes/integrations/class-zeko-ai-integration-freelance.php:122
 #: includes/integrations/class-zeko-ai-integration-jobs.php:129
-#: includes/integrations/class-zeko-ai-integration-learn.php:80
-#: includes/integrations/class-zeko-ai-integration-qa.php:98
+#: includes/integrations/class-zeko-ai-integration-learn.php:106
+#: includes/integrations/class-zeko-ai-integration-qa.php:124
 msgid "Your notes"
 msgstr ""
 
@@ -2208,7 +2208,7 @@ msgstr ""
 msgid "ago"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:146
+#: includes/integrations/class-zeko-ai-integration-business.php:168
 msgid "e.g. House call — hair styling"
 msgstr ""
 
@@ -2241,8 +2241,8 @@ msgstr ""
 msgid "questions & answers"
 msgstr ""
 
-#: includes/integrations/class-zeko-ai-integration-business.php:235
-#: includes/integrations/class-zeko-ai-integration-business.php:304
+#: includes/integrations/class-zeko-ai-integration-business.php:257
+#: includes/integrations/class-zeko-ai-integration-business.php:326
 msgid "review"
 msgid_plural "reviews"
 msgstr[0] ""
