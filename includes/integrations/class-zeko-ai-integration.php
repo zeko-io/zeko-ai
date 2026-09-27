@@ -522,4 +522,33 @@ abstract class Zeko_AI_Integration {
 		}
 		return zeko_ai()->get_moderation()->maybe_review( $user_id, $source, $content_type, $content_id, $content );
 	}
+
+	/**
+	 * Front-end URL for a module page. Modules with their own permalink
+	 * helper are resolved through it so links point at the real page; the
+	 * rest fall back to a canonical path. Either way the result is filterable
+	 * via `zeko_ai_agent_module_url` for overrides and tests.
+	 *
+	 * @param string $path Path.
+	 */
+	protected function module_url( string $path ): string {
+		$helpers = array(
+			'/freelance/'          => array( 'zeko_freelance_page_url', 'freelance-projects' ),
+			'/shop/'               => array( 'zeko_shop_page_url', 'shop' ),
+			'/dating-matches/'     => array( 'zeko_love_page_url', 'dating-matches' ),
+			'/rewards/'            => array( 'zeko_rewards_page_url', 'rewards' ),
+			'/ai-search/'          => array( 'zeko_ai_page_url', 'ai-search' ),
+			'/ai-recommendations/' => array( 'zeko_ai_page_url', 'ai-recommendations' ),
+			'/ai-assistant/'       => array( 'zeko_ai_page_url', 'ai-assistant' ),
+		);
+
+		if ( isset( $helpers[ $path ] ) ) {
+			list( $function, $slug ) = $helpers[ $path ];
+			if ( function_exists( $function ) ) {
+				return (string) apply_filters( 'zeko_ai_agent_module_url', $function( $slug ), $path );
+			}
+		}
+
+		return (string) apply_filters( 'zeko_ai_agent_module_url', home_url( $path ), $path );
+	}
 }

@@ -16,12 +16,38 @@ class Zeko_AI_Integration_Shop extends Zeko_AI_Integration {
 	 * Hooks.
 	 */
 	protected function hooks(): void {
+		add_action( 'zeko_shop_product_created', array( $this, 'on_product_created' ), 10, 3 );
 	}
 
 	/**
-	 * Db.
+	 * Moderate a freshly-created product.
+	 *
+	 * @param int   $product_id Product id.
+	 * @param int   $user_id    Creator id.
+	 * @param array $data       Insert data.
+	 */
+	public function on_product_created( int $product_id, int $user_id, array $data ): void {
+		$text = trim( (string) ( $data['title'] ?? '' ) . ' ' . wp_strip_all_tags( (string) ( $data['description'] ?? '' ) ) );
+		if ( '' === $text ) {
+			return;
+		}
+		$this->moderate( $user_id, 'shop', 'product', $product_id, $text );
+	}
+
+	/**
+	 * Whether the Shop module is active.
+	 */
+	private function module_active(): bool {
+		return function_exists( 'zeko_shop' ) && function_exists( 'zeko_shop_page_url' );
+	}
+
+	/**
+	 * Db (null-safe for inactive module).
 	 */
 	private function db() {
+		if ( ! $this->module_active() ) {
+			return null;
+		}
 		return zeko_shop()->get_db();
 	}
 
@@ -47,7 +73,7 @@ class Zeko_AI_Integration_Shop extends Zeko_AI_Integration {
 	 * @param array $blocks Blocks.
 	 */
 	public function context( array $blocks ): array {
-		if ( ! is_user_logged_in() ) {
+		if ( ! is_user_logged_in() || ! $this->module_active() ) {
 			return $blocks;
 		}
 		$user_id = get_current_user_id();
@@ -207,6 +233,9 @@ class Zeko_AI_Integration_Shop extends Zeko_AI_Integration {
 	 * @param array $sources Sources.
 	 */
 	public function search_sources( array $sources ): array {
+		if ( ! $this->module_active() ) {
+			return $sources;
+		}
 		$sources[] = array(
 			'type'   => 'product',
 			'label'  => __( 'Shop', 'zeko-ai' ),
@@ -240,6 +269,9 @@ class Zeko_AI_Integration_Shop extends Zeko_AI_Integration {
 	 * @param array $sources Sources.
 	 */
 	public function recommendation_sources( array $sources ): array {
+		if ( ! $this->module_active() ) {
+			return $sources;
+		}
 		$sources[] = array(
 			'type'  => 'product',
 			'label' => __( 'Shop', 'zeko-ai' ),
@@ -271,6 +303,9 @@ class Zeko_AI_Integration_Shop extends Zeko_AI_Integration {
 	 * @param array $sources Sources.
 	 */
 	public function moderation_sources( array $sources ): array {
+		if ( ! $this->module_active() ) {
+			return $sources;
+		}
 		$sources[] = array(
 			'source' => 'shop',
 			'type'   => 'product',

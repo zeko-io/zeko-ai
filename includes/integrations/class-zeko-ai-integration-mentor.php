@@ -60,7 +60,7 @@ class Zeko_AI_Integration_Mentor extends Zeko_AI_Integration {
 		}
 		$row = $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT * FROM {$reviews} WHERE session_id = %d ORDER BY id DESC LIMIT 1",
+				"SELECT * FROM {$reviews} WHERE session_id = %d ORDER BY review_id DESC LIMIT 1",
 				$session_id
 			)
 		);
@@ -68,11 +68,11 @@ class Zeko_AI_Integration_Mentor extends Zeko_AI_Integration {
 		if ( ! $row ) {
 			return;
 		}
-		$text = (string) ( $row->comment ?? $row->content ?? '' );
+		$text = (string) ( $row->review_text ?? $row->content ?? '' );
 		if ( '' === trim( $text ) ) {
 			return;
 		}
-		$this->moderate( $reviewer_id, 'mentor', 'review', (int) $row->id, $text );
+		$this->moderate( $reviewer_id, 'mentor', 'review', (int) ( $row->review_id ?? $row->id ?? 0 ), $text );
 	}
 
 	// ── Assistant context ──────────────────────────────────────────────.

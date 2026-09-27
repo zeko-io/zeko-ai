@@ -314,7 +314,7 @@ class Zeko_AI_Recommendations {
 			if ( strlen( $word ) < 3 ) {
 				continue;
 			}
-			if ( isset( self::$stopwords[ $word ] ) ) {
+			if ( in_array( $word, self::$stopwords, true ) ) {
 				continue;
 			}
 			$tokens[] = $word;

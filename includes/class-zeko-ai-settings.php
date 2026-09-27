@@ -93,6 +93,7 @@ class Zeko_AI_Settings {
 			'openai_base_url'         => isset( $input['openai_base_url'] ) ? esc_url_raw( (string) $input['openai_base_url'] ) : $defaults['openai_base_url'],
 			'anthropic_key'           => isset( $input['anthropic_key'] ) ? sanitize_text_field( (string) $input['anthropic_key'] ) : '',
 			'anthropic_model'         => isset( $input['anthropic_model'] ) ? mb_substr( sanitize_text_field( (string) $input['anthropic_model'] ), 0, 100 ) : $defaults['anthropic_model'],
+			'cloud_model'             => isset( $input['cloud_model'] ) ? mb_substr( sanitize_text_field( (string) $input['cloud_model'] ), 0, 100 ) : $defaults['cloud_model'],
 			'moderation_enabled'      => empty( $input['moderation_enabled'] ) ? 0 : 1,
 			'moderation_threshold'    => isset( $input['moderation_threshold'] ) ? min( 1.0, max( 0.0, (float) $input['moderation_threshold'] ) ) : $defaults['moderation_threshold'],
 			'feature_assistant'       => empty( $input['feature_assistant'] ) ? 0 : 1,

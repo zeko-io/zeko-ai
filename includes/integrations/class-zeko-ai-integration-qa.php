@@ -16,12 +16,38 @@ class Zeko_AI_Integration_QA extends Zeko_AI_Integration {
 	 * Hooks.
 	 */
 	protected function hooks(): void {
+		add_action( 'zeko_qa_question_created', array( $this, 'on_question_created' ), 10, 3 );
 	}
 
 	/**
-	 * Db.
+	 * Moderate a freshly-created question.
+	 *
+	 * @param int   $question_id Question id.
+	 * @param int   $user_id     Author id.
+	 * @param array $data        Insert data.
+	 */
+	public function on_question_created( int $question_id, int $user_id, array $data ): void {
+		$text = trim( (string) ( $data['title'] ?? '' ) . ' ' . wp_strip_all_tags( (string) ( $data['content'] ?? '' ) ) );
+		if ( '' === $text ) {
+			return;
+		}
+		$this->moderate( $user_id, 'qa', 'question', $question_id, $text );
+	}
+
+	/**
+	 * Whether the Q&A module is active.
+	 */
+	private function module_active(): bool {
+		return function_exists( 'zeko_qa' );
+	}
+
+	/**
+	 * Db (null-safe for inactive module).
 	 */
 	private function db() {
+		if ( ! $this->module_active() ) {
+			return null;
+		}
 		return zeko_qa()->get_db();
 	}
 
@@ -59,7 +85,7 @@ class Zeko_AI_Integration_QA extends Zeko_AI_Integration {
 	 * @param array $blocks Blocks.
 	 */
 	public function context( array $blocks ): array {
-		if ( ! is_user_logged_in() ) {
+		if ( ! is_user_logged_in() || ! $this->module_active() ) {
 			return $blocks;
 		}
 		$user_id = get_current_user_id();
@@ -242,6 +268,9 @@ class Zeko_AI_Integration_QA extends Zeko_AI_Integration {
 	 * @param array $sources Sources.
 	 */
 	public function search_sources( array $sources ): array {
+		if ( ! $this->module_active() ) {
+			return $sources;
+		}
 		$sources[] = array(
 			'type'   => 'question',
 			'label'  => __( 'Q&A', 'zeko-ai' ),
@@ -275,6 +304,9 @@ class Zeko_AI_Integration_QA extends Zeko_AI_Integration {
 	 * @param array $sources Sources.
 	 */
 	public function recommendation_sources( array $sources ): array {
+		if ( ! $this->module_active() ) {
+			return $sources;
+		}
 		$sources[] = array(
 			'type'  => 'question',
 			'label' => __( 'Q&A', 'zeko-ai' ),
@@ -307,6 +339,9 @@ class Zeko_AI_Integration_QA extends Zeko_AI_Integration {
 	 * @param array $sources Sources.
 	 */
 	public function moderation_sources( array $sources ): array {
+		if ( ! $this->module_active() ) {
+			return $sources;
+		}
 		$sources[] = array(
 			'source' => 'qa',
 			'type'   => 'question',

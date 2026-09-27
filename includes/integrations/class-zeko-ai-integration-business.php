@@ -19,6 +19,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Zeko_AI_Integration_Business extends Zeko_AI_Integration {
 
 	/**
+	 * Hooks.
+	 */
+	protected function hooks(): void {
+		add_action( 'zbe_business_created', array( $this, 'on_business_created' ), 10, 2 );
+	}
+
+	/**
+	 * Moderate a freshly-created business listing.
+	 *
+	 * @param object $business Business object.
+	 * @param int    $owner_id Owner id.
+	 */
+	public function on_business_created( object $business, int $owner_id ): void {
+		$name        = trim( (string) ( $business->name ?? '' ) );
+		$description = trim( wp_strip_all_tags( (string) ( $business->extra_data['description'] ?? '' ) ) );
+		if ( '' === $name && '' === $description ) {
+			return;
+		}
+		$this->moderate( $owner_id, 'business', 'business', (int) ( $business->id ?? 0 ), trim( $name . "\n\n" . $description ) );
+	}
+
+	/**
 	 * Whether the business plugin's repository is available.
 	 */
 	private function available(): bool {

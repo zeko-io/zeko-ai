@@ -16,12 +16,38 @@ class Zeko_AI_Integration_Learn extends Zeko_AI_Integration {
 	 * Hooks.
 	 */
 	protected function hooks(): void {
+		add_action( 'zeko_learn_course_created', array( $this, 'on_course_created' ), 10, 3 );
 	}
 
 	/**
-	 * Db.
+	 * Moderate a freshly-created course.
+	 *
+	 * @param int   $course_id     Course id.
+	 * @param int   $instructor_id Instructor id.
+	 * @param array $data          Insert data.
+	 */
+	public function on_course_created( int $course_id, int $instructor_id, array $data ): void {
+		$text = trim( (string) ( $data['title'] ?? '' ) . ' ' . wp_strip_all_tags( (string) ( $data['description'] ?? '' ) ) );
+		if ( '' === $text ) {
+			return;
+		}
+		$this->moderate( $instructor_id, 'learn', 'course', $course_id, $text );
+	}
+
+	/**
+	 * Whether the Learn module is active.
+	 */
+	private function module_active(): bool {
+		return function_exists( 'zeko_learn' );
+	}
+
+	/**
+	 * Db (null-safe for inactive module).
 	 */
 	private function db() {
+		if ( ! $this->module_active() ) {
+			return null;
+		}
 		return zeko_learn()->get_db();
 	}
 
@@ -40,7 +66,7 @@ class Zeko_AI_Integration_Learn extends Zeko_AI_Integration {
 	 * @param array $blocks Blocks.
 	 */
 	public function context( array $blocks ): array {
-		if ( ! is_user_logged_in() ) {
+		if ( ! is_user_logged_in() || ! $this->module_active() ) {
 			return $blocks;
 		}
 		$user_id = get_current_user_id();
@@ -209,6 +235,9 @@ class Zeko_AI_Integration_Learn extends Zeko_AI_Integration {
 	 * @param array $sources Sources.
 	 */
 	public function search_sources( array $sources ): array {
+		if ( ! $this->module_active() ) {
+			return $sources;
+		}
 		$sources[] = array(
 			'type'   => 'course',
 			'label'  => __( 'Courses', 'zeko-ai' ),
@@ -242,6 +271,9 @@ class Zeko_AI_Integration_Learn extends Zeko_AI_Integration {
 	 * @param array $sources Sources.
 	 */
 	public function recommendation_sources( array $sources ): array {
+		if ( ! $this->module_active() ) {
+			return $sources;
+		}
 		$sources[] = array(
 			'type'  => 'course',
 			'label' => __( 'Courses', 'zeko-ai' ),
@@ -273,6 +305,9 @@ class Zeko_AI_Integration_Learn extends Zeko_AI_Integration {
 	 * @param array $sources Sources.
 	 */
 	public function moderation_sources( array $sources ): array {
+		if ( ! $this->module_active() ) {
+			return $sources;
+		}
 		$sources[] = array(
 			'source' => 'learn',
 			'type'   => 'course',
