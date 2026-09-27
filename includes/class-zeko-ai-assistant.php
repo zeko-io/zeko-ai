@@ -63,6 +63,40 @@ class Zeko_AI_Assistant {
 	 * @throws InvalidArgumentException When an error occurs.
 	 */
 	public function send_message( int $user_id, int $conversation_id, string $message ): array {
+		return $this->run_turn( $user_id, $conversation_id, $message, null );
+	}
+
+	/**
+	 * Streamed chat turn. Identical to send_message() except the provider
+	 * streams the reply through $on_chunk as it is generated, so the front-end
+	 * can render tokens live. The user message is persisted before streaming
+	 * and the assistant reply is persisted afterwards exactly like a buffered
+	 * turn, so the conversation log and usage stay identical.
+	 *
+	 * @return array{reply:string, conversation_id:int, provider:string, model:string, tokens_in:int, tokens_out:int}
+	 * @param int      $user_id * @param int      $conversation_id.
+	 * @param int      $conversation_id Conversation id.
+	 * @param string   $message * @return array{reply:string, conversation_id:int, provider:string, model:string, tokens_in:int, tokens_out:int}.
+	 * @param callable $on_chunk Chunk callback ($delta).
+	 * @throws InvalidArgumentException When an error occurs.
+	 */
+	public function send_message_stream( int $user_id, int $conversation_id, string $message, callable $on_chunk ): array {
+		return $this->run_turn( $user_id, $conversation_id, $message, $on_chunk );
+	}
+
+	/**
+	 * Run one chat turn: persist the user message, generate the reply
+	 * (buffered or streamed), persist the assistant reply, record usage and
+	 * return the same metadata shape both callers share.
+	 *
+	 * @return array{reply:string, conversation_id:int, provider:string, model:string, tokens_in:int, tokens_out:int}
+	 * @param int            $user_id * @param int            $conversation_id.
+	 * @param int            $conversation_id Conversation id.
+	 * @param string         $message * @return array{reply:string, conversation_id:int, provider:string, model:string, tokens_in:int, tokens_out:int}.
+	 * @param ?callable      $on_chunk Chunk callback or null when buffered.
+	 * @throws InvalidArgumentException When an error occurs.
+	 */
+	private function run_turn( int $user_id, int $conversation_id, string $message, ?callable $on_chunk ): array {
 		$conversation = $this->db->get_conversation( $conversation_id );
 		if ( ! $conversation || (int) $conversation->user_id !== $user_id ) {
 			throw new InvalidArgumentException( 'Conversation not found.' );
@@ -96,21 +130,25 @@ class Zeko_AI_Assistant {
 			$messages
 		);
 
-		$result = zeko_ai()->get_provider()->chat(
-			$chat,
-			array(
-				'max_tokens'  => 800,
-				'temperature' => 0.7,
-				'user_id'     => $user_id,
-			)
+		$opts = array(
+			'max_tokens'  => 800,
+			'temperature' => 0.7,
+			'user_id'     => $user_id,
 		);
+
+		$provider = zeko_ai()->get_provider();
+		if ( null !== $on_chunk ) {
+			$result = $provider->stream( $chat, $opts, $on_chunk );
+		} else {
+			$result = $provider->chat( $chat, $opts );
+		}
 
 		$this->db->insert_message(
 			array(
 				'conversation_id' => $conversation_id,
 				'role'            => 'assistant',
 				'content'         => (string) $result['content'],
-				'provider'        => zeko_ai()->get_provider()->name(),
+				'provider'        => $provider->name(),
 				'model'           => (string) $result['model'],
 				'tokens_in'       => (int) $result['tokens_in'],
 				'tokens_out'      => (int) $result['tokens_out'],
@@ -139,7 +177,7 @@ class Zeko_AI_Assistant {
 		return array(
 			'reply'           => (string) $result['content'],
 			'conversation_id' => $conversation_id,
-			'provider'        => zeko_ai()->get_provider()->name(),
+			'provider'        => $provider->name(),
 			'model'           => (string) $result['model'],
 			'tokens_in'       => (int) $result['tokens_in'],
 			'tokens_out'      => (int) $result['tokens_out'],

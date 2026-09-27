@@ -43,6 +43,40 @@ class Zeko_AI_Anthropic_Provider extends Zeko_AI_Provider {
 	 * @param array $opts Opts.
 	 */
 	public function chat( array $messages, array $opts = array() ): array {
+		$body = $this->request_body( $messages, $opts, false );
+
+		$response = $this->request( $body );
+
+		$content = '';
+		foreach ( (array) ( $response['content'] ?? array() ) as $block ) {
+			if ( is_array( $block ) && 'text' === ( $block['type'] ?? '' ) ) {
+				$content .= (string) ( $block['text'] ?? '' );
+			}
+		}
+
+		$usage      = isset( $response['usage'] ) && is_array( $response['usage'] ) ? $response['usage'] : array();
+		$tokens_in  = (int) ( $usage['input_tokens'] ?? $this->estimate_tokens( $this->flatten( $messages ) ) );
+		$tokens_out = (int) ( $usage['output_tokens'] ?? $this->estimate_tokens( $content ) );
+
+		return array(
+			'content'    => $content,
+			'tokens_in'  => $tokens_in,
+			'tokens_out' => $tokens_out,
+			'model'      => $this->model(),
+			'raw'        => $response,
+		);
+	}
+
+	/**
+	 * Normalize multi-turn messages into the Anthropic message shape shared
+	 * by chat() and stream(): a single system message plus user/assistant
+	 * turns.
+	 *
+	 * @param array $messages Messages.
+	 * @param array $opts Opts.
+	 * @param bool  $stream Stream flag in body.
+	 */
+	private function request_body( array $messages, array $opts, bool $stream ): array {
 		$system = '';
 		$user   = array();
 		foreach ( $messages as $message ) {
@@ -64,6 +98,9 @@ class Zeko_AI_Anthropic_Provider extends Zeko_AI_Provider {
 			'max_tokens' => isset( $opts['max_tokens'] ) ? (int) $opts['max_tokens'] : 1024,
 			'messages'   => $user,
 		);
+		if ( $stream ) {
+			$body['stream'] = true;
+		}
 		if ( '' !== $system ) {
 			$body['system'] = $system;
 		}
@@ -71,25 +108,86 @@ class Zeko_AI_Anthropic_Provider extends Zeko_AI_Provider {
 			$body['temperature'] = (float) $opts['temperature'];
 		}
 
-		$response = $this->request( $body );
+		return $body;
+	}
+
+	/**
+	 * Whether this provider can stream.
+	 */
+	public function supports_streaming(): bool {
+		return true;
+	}
+
+	/**
+	 * Streamed chat completion. Reads the live Anthropic SSE stream and emits
+	 * text_delta payloads as they arrive; usage is aggregated from the
+	 * message_start / message_delta events.
+	 *
+	 * @param array    $messages Messages.
+	 * @param array    $opts Opts.
+	 * @param callable $on_chunk Chunk callback.
+	 */
+	public function stream( array $messages, array $opts, callable $on_chunk ): array {
+		$endpoint = apply_filters( 'zeko_ai_anthropic_endpoint', 'https://api.anthropic.com/v1/messages' );
+		$headers  = array(
+			'x-api-key'         => $this->api_key(),
+			'anthropic-version' => '2023-06-01',
+			'Content-Type'      => 'application/json',
+		);
 
 		$content = '';
-		foreach ( (array) ( $response['content'] ?? array() ) as $block ) {
-			if ( is_array( $block ) && 'text' === ( $block['type'] ?? '' ) ) {
-				$content .= (string) ( $block['text'] ?? '' );
-			}
-		}
+		$usage   = array();
+		$buffer  = '';
 
-		$usage      = isset( $response['usage'] ) && is_array( $response['usage'] ) ? $response['usage'] : array();
-		$tokens_in  = (int) ( $usage['input_tokens'] ?? $this->estimate_tokens( $this->flatten( $messages ) ) );
-		$tokens_out = (int) ( $usage['output_tokens'] ?? $this->estimate_tokens( $content ) );
+		$this->stream_request(
+			$endpoint,
+			$headers,
+			wp_json_encode( $this->request_body( $messages, $opts, true ) ),
+			function ( string $bytes ) use ( &$buffer, &$content, &$usage, $on_chunk ): void {
+				$this->consume_sse(
+					$bytes,
+					$buffer,
+					function ( string $payload ) use ( &$content, &$usage, $on_chunk ): void {
+						$json = json_decode( $payload, true );
+						if ( ! is_array( $json ) ) {
+							return;
+						}
+						$type = $json['type'] ?? '';
+						if ( 'content_block_delta' === $type ) {
+							$delta = $json['delta'] ?? array();
+							if ( is_array( $delta ) && 'text_delta' === ( $delta['type'] ?? '' ) && isset( $delta['text'] ) ) {
+								$text = (string) $delta['text'];
+								if ( '' !== $text ) {
+									$content .= $text;
+									$on_chunk( $text );
+								}
+							}
+						}
+
+						// message_start nests usage under message.usage; message_delta
+						// sends it top-level. Merge whichever the event carried.
+						$usage_block = isset( $json['usage'] ) && is_array( $json['usage'] )
+							? $json['usage']
+							: ( isset( $json['message']['usage'] ) && is_array( $json['message']['usage'] )
+								? $json['message']['usage']
+								: array() );
+						if ( $usage_block ) {
+							$usage = array_merge( $usage, $usage_block );
+						}
+					}
+				);
+			}
+		);
 
 		return array(
 			'content'    => $content,
-			'tokens_in'  => $tokens_in,
-			'tokens_out' => $tokens_out,
+			'tokens_in'  => (int) ( $usage['input_tokens'] ?? $this->estimate_tokens( $this->flatten( $messages ) ) ),
+			'tokens_out' => (int) ( $usage['output_tokens'] ?? $this->estimate_tokens( $content ) ),
 			'model'      => $this->model(),
-			'raw'        => $response,
+			'raw'        => array(
+				'stream' => true,
+				'usage'  => $usage,
+			),
 		);
 	}
 

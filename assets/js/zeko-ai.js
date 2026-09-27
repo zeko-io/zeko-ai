@@ -254,7 +254,8 @@
 		return t;
 	}
 
-	/* Send one chat message and render the reply + chips/actions. */
+	/* Send one chat message. Streams token deltas when enabled and supported,
+	 * falling back to the buffered JSON response otherwise. */
 	function sendText(shell, message) {
 		var log = shell.querySelector('.zeko-ai-chat-log');
 		appendMessage(log, 'user', message);
@@ -264,31 +265,176 @@
 		log.appendChild(busy);
 		log.scrollTop = log.scrollHeight;
 
-		post('zeko_ai_chat', {
+		var convId = shell.dataset.conversationId || '';
+
+		if (!cfg.streaming || typeof ReadableStream === 'undefined' || typeof TextDecoder === 'undefined') {
+			post('zeko_ai_chat', {
+				message: message,
+				conversation_id: convId
+			}).then(function (res) {
+				busy.remove();
+				finishJson(shell, log, res, message);
+			}).catch(function () {
+				busy.remove();
+				appendMessage(log, 'assistant', cfg.i18n.error || 'Error');
+			});
+			return;
+		}
+
+		streamChat('zeko_ai_chat', {
 			message: message,
-			conversation_id: shell.dataset.conversationId || ''
-		}).then(function (res) {
-			busy.remove();
-			if (!res || !res.success) {
-				appendMessage(log, 'assistant', res && res.error ? res.error : (cfg.i18n.error || 'Error'));
-				return;
+			conversation_id: convId,
+			stream: '1'
+		}, {
+			onStart: function () {
+				var row = document.createElement('div');
+				row.className = 'zeko-ai-msg zeko-ai-msg-assistant';
+				busy.replaceWith(row);
+				log.scrollTop = log.scrollHeight;
+				return row;
+			},
+			onDelta: function (row, text) {
+				row.textContent += text;
+				log.scrollTop = log.scrollHeight;
+			},
+			onDone: function (row, res) {
+				if (!res || !res.success) {
+					if (row && row.parentNode) {
+						row.remove();
+					}
+					appendMessage(log, 'assistant', res && res.error ? res.error : (cfg.i18n.error || 'Error'));
+					return;
+				}
+				shell.dataset.conversationId = res.conversation_id;
+				row.innerHTML = mdToHtml(res.reply);
+				if (res.knowledge_id) {
+					appendVoteButtons(log, res.knowledge_id);
+				}
+				appendSuggestions(shell, log, res);
+				updatePicker(shell, res, message);
+				log.scrollTop = log.scrollHeight;
+			},
+			onError: function (row) {
+				if (row && row.parentNode) {
+					row.remove();
+				}
+				appendMessage(log, 'assistant', cfg.i18n.error || 'Error');
 			}
-			shell.dataset.conversationId = res.conversation_id;
-			appendMessage(log, 'assistant', res.reply, res.knowledge_id || 0);
-			appendSuggestions(shell, log, res);
-			var picker = shell.querySelector('.zeko-ai-conversation-picker');
-			if (picker && picker.value === '') {
-				var opt = document.createElement('option');
-				opt.value = res.conversation_id;
-				opt.textContent = message.slice(0, 60);
-				opt.selected = true;
-				picker.appendChild(opt);
-			}
-		}).catch(function () {
-			busy.remove();
-			appendMessage(log, 'assistant', cfg.i18n.error || 'Error');
 		});
-		log.scrollTop = log.scrollHeight;
+	}
+
+	/* Render a buffered (non-streaming) chat response. */
+	function finishJson(shell, log, res, seed) {
+		if (!res || !res.success) {
+			appendMessage(log, 'assistant', res && res.error ? res.error : (cfg.i18n.error || 'Error'));
+			return;
+		}
+		shell.dataset.conversationId = res.conversation_id;
+		appendMessage(log, 'assistant', res.reply, res.knowledge_id || 0);
+		appendSuggestions(shell, log, res);
+		updatePicker(shell, res, seed);
+	}
+
+	/* Add the new conversation to the picker when it is still on "New chat". */
+	function updatePicker(shell, res, seed) {
+		var picker = shell.querySelector('.zeko-ai-conversation-picker');
+		if (!picker || picker.value !== '') {
+			return;
+		}
+		var opt = document.createElement('option');
+		opt.value = res.conversation_id;
+		opt.textContent = (seed || (res.reply || '')).slice(0, 60);
+		opt.selected = true;
+		picker.appendChild(opt);
+	}
+
+	/* Consume an SSE endpoint over fetch + ReadableStream. Emits delta events
+	 * to onDelta as they arrive and onDone with the final 'done' event; onError
+	 * fires on network/server failures. When the response is not a stream
+	 * (e.g. provider buffered), parses the JSON body through onDone instead. */
+	function streamChat(action, data, handlers) {
+		var msgRow = handlers.onStart ? handlers.onStart() : null;
+		var body = new FormData();
+		body.append('action', action);
+		body.append('nonce', cfg.nonce || '');
+		Object.keys(data || {}).forEach(function (key) {
+			body.append(key, data[key]);
+		});
+
+		fetch(cfg.ajaxUrl || '/wp-admin/admin-ajax.php', {
+			method: 'POST',
+			credentials: 'same-origin',
+			body: body
+		}).then(function (res) {
+			var ctype = res.headers.get('content-type') || '';
+			if (!res.body || ctype.indexOf('text/event-stream') === -1) {
+				return res.json().then(function (r) {
+					if (handlers.onDone) {
+						handlers.onDone(msgRow, r);
+					}
+				});
+			}
+
+			var reader = res.body.getReader();
+			var decoder = new TextDecoder();
+			var buffer = '';
+
+			function handleEvent(evt) {
+				if (evt.type === 'delta' && evt.text) {
+					if (handlers.onDelta) {
+						handlers.onDelta(msgRow, evt.text);
+					}
+				} else if (evt.type === 'done') {
+					if (handlers.onDone) {
+						handlers.onDone(msgRow, evt);
+					}
+				} else if (evt.type === 'error') {
+					if (handlers.onError) {
+						handlers.onError(msgRow, evt);
+					}
+				}
+			}
+
+			function handleBlock(block) {
+				block.split('\n').forEach(function (line) {
+					if (line.indexOf('data:') !== 0) {
+						return;
+					}
+					var raw = line.slice(5).trim();
+					if (!raw || raw === '[DONE]') {
+						return;
+					}
+					var evt = null;
+					try {
+						evt = JSON.parse(raw);
+					} catch (ignored) {
+						return;
+					}
+					handleEvent(evt);
+				});
+			}
+
+			return reader.read().then(function pump(r) {
+				if (r.done) {
+					return;
+				}
+				buffer += decoder.decode(r.value, { stream: true });
+				var idx;
+				while ((idx = buffer.indexOf('\n\n')) !== -1) {
+					handleBlock(buffer.slice(0, idx));
+					buffer = buffer.slice(idx + 2);
+				}
+				return reader.read().then(pump);
+			}).catch(function (err) {
+				if (handlers.onError) {
+					handlers.onError(msgRow, err);
+				}
+			});
+		}).catch(function (err) {
+			if (handlers.onError) {
+				handlers.onError(msgRow, err);
+			}
+		});
 	}
 
 	/* Action buttons (deep links) + follow-up question chips under a reply. */

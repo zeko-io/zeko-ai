@@ -102,6 +102,15 @@ class Zeko_AI_Ajax {
 			$conversation_id = zeko_ai()->get_assistant()->start_conversation( $user_id );
 		}
 
+		$stream = ! empty( $_POST['stream'] )
+			&& ! empty( zeko_ai_get_settings()['streaming_enabled'] )
+			&& zeko_ai()->get_provider()->supports_streaming();
+
+		if ( $stream ) {
+			$this->handle_chat_stream( $user_id, $conversation_id, $message );
+			return;
+		}
+
 		try {
 			$result = zeko_ai()->get_assistant()->send_message( $user_id, $conversation_id, $message );
 		} catch ( InvalidArgumentException $e ) {
@@ -127,6 +136,113 @@ class Zeko_AI_Ajax {
 				'actions'         => (array) ( $result['actions'] ?? array() ),
 			)
 		);
+	}
+
+	/**
+	 * Stream a chat reply over Server-Sent Events. Emits one 'delta' event per
+	 * upstream chunk, then a single 'done' event carrying the full reply and
+	 * metadata, all terminated by the standard [DONE] marker. Failures that
+	 * happen before any delta surface as an 'error' event; a mid-stream error
+	 * is reported too, but only the user message is kept in the log — a reply
+	 * is only persisted once the stream has finished cleanly.
+	 *
+	 * @param int    $user_id User id.
+	 * @param int    $conversation_id Conversation id.
+	 * @param string $message Message.
+	 */
+	private function handle_chat_stream( int $user_id, int $conversation_id, string $message ): void {
+		header( 'Content-Type: text/event-stream; charset=' . get_option( 'blog_charset' ) );
+		header( 'Cache-Control: no-cache, no-transform' );
+		header( 'X-Accel-Buffering: no' );
+
+		if ( function_exists( 'session_status' ) && PHP_SESSION_ACTIVE === session_status() ) {
+			session_write_close();
+		}
+		@set_time_limit( 300 ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions,WordPress.PHP.NoSilencedErrors.Discouraged
+		while ( ob_get_level() ) {
+			ob_end_flush(); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions
+		}
+		flush(); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions
+
+		try {
+			$result = zeko_ai()->get_assistant()->send_message_stream(
+				$user_id,
+				$conversation_id,
+				$message,
+				function ( string $delta ): void {
+					$this->push_stream(
+						array(
+							'type' => 'delta',
+							'text' => $delta,
+						)
+					);
+				}
+			);
+		} catch ( InvalidArgumentException $e ) {
+			$this->push_stream(
+				array(
+					'type'  => 'error',
+					'error' => $e->getMessage(),
+				)
+			);
+			$this->finish_stream();
+			return;
+		} catch ( \Throwable $e ) {
+			error_log( 'Zeko AI stream: ' . $e->getMessage() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
+			$this->push_stream(
+				array(
+					'type'  => 'error',
+					'error' => __( 'The AI service is unavailable right now. Please try again in a moment.', 'zeko-ai' ),
+				)
+			);
+			$this->finish_stream();
+			return;
+		}
+
+		$this->push_stream(
+			array(
+				'type'            => 'done',
+				'success'         => true,
+				'reply'           => $result['reply'],
+				'conversation_id' => $result['conversation_id'],
+				'provider'        => $result['provider'],
+				'model'           => $result['model'],
+				'knowledge_id'    => (int) ( $result['knowledge_id'] ?? 0 ),
+				'confidence'      => (float) ( $result['confidence'] ?? 0 ),
+				'intent'          => (string) ( $result['intent'] ?? '' ),
+				'source'          => (string) ( $result['source'] ?? '' ),
+				'guarded'         => ! empty( $result['guarded'] ),
+				'follow_up'       => ! empty( $result['follow_up'] ),
+				'suggestions'     => (array) ( $result['suggestions'] ?? array() ),
+				'actions'         => (array) ( $result['actions'] ?? array() ),
+			)
+		);
+		$this->finish_stream();
+	}
+
+	/**
+	 * Emit one SSE event with a JSON payload.
+	 *
+	 * @param array $payload Payload.
+	 */
+	private function push_stream( array $payload ): void {
+		echo 'data: ' . wp_json_encode( $payload ) . "\n\n"; // phpcs:ignore WordPress.Security.EscapeOutput
+		flush(); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions
+	}
+
+	/**
+	 * Close an SSE response with the [DONE] marker and stop the request.
+	 *
+	 * @throws Zeko_AI_Ajax_Halt When an error occurs.
+	 */
+	private function finish_stream(): void {
+		echo "data: [DONE]\n\n"; // phpcs:ignore WordPress.Security.EscapeOutput
+		flush(); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions
+
+		if ( apply_filters( 'zeko_ai_ajax_exit', true ) ) {
+			exit;
+		}
+		throw new Zeko_AI_Ajax_Halt();
 	}
 
 	/**

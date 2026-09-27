@@ -316,6 +316,7 @@ function zeko_ai_get_settings(): array {
 		'feature_moderation'      => 1,
 		'feature_analytics'       => 0,
 		'floating_widget'         => 1,
+		'streaming_enabled'       => 1,
 		'agent_world_knowledge'   => 0,
 		'agent_learning'          => 1,
 		'agent_auto_learn'        => 0,

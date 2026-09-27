@@ -54,9 +54,10 @@ class Zeko_AI_Shortcodes {
 			'zeko-ai',
 			'ZekoAI',
 			array(
-				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( Zeko_AI_Ajax::nonce_action() ),
-				'i18n'    => array(
+				'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
+				'nonce'     => wp_create_nonce( Zeko_AI_Ajax::nonce_action() ),
+				'streaming' => ! empty( zeko_ai_get_settings()['streaming_enabled'] ) ? 1 : 0,
+				'i18n'      => array(
 					'sending'        => __( 'Thinking…', 'zeko-ai' ),
 					'error'          => __( 'Something went wrong. Please try again.', 'zeko-ai' ),
 					'typeHere'       => __( 'Ask Zeko…', 'zeko-ai' ),

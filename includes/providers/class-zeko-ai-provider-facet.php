@@ -71,6 +71,64 @@ class Zeko_AI_Provider_Facet extends Zeko_AI_Provider {
 	}
 
 	/**
+	 * Whether any provider in the chain can stream.
+	 */
+	public function supports_streaming(): bool {
+		foreach ( $this->chain as $provider ) {
+			if ( $provider->supports_streaming() ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Streamed chat. Mirrors chat() failover, but a provider failure only
+	 * rolls to the next one while nothing has been emitted yet: once the
+	 * first delta has gone out the stream is committed, so no partial
+	 * answer is ever stitched back together.
+	 *
+	 * @param array    $messages Messages.
+	 * @param array    $opts Opts.
+	 * @param callable $on_chunk Chunk callback.
+	 */
+	public function stream( array $messages, array $opts, callable $on_chunk ): array {
+		$errors  = array();
+		$emitted = false;
+
+		foreach ( $this->chain as $provider ) {
+			try {
+				$result = $provider->stream(
+					$messages,
+					$opts,
+					function ( string $chunk ) use ( &$emitted, $on_chunk ): void {
+						$emitted = true;
+						$on_chunk( $chunk );
+					}
+				);
+				if ( is_array( $result ) ) {
+					if ( ! isset( $result['provider'] ) ) {
+						$result['provider'] = $provider->name();
+					}
+					if ( ! isset( $result['model'] ) ) {
+						$result['model'] = $provider->model();
+					}
+				}
+				return $result;
+			} catch ( \Throwable $e ) {
+				if ( $emitted ) {
+					throw $e;
+				}
+				$errors[] = $provider->name() . ': ' . $e->getMessage();
+				error_log( 'Zeko AI failover: ' . $provider->name() . ' failed: ' . $e->getMessage() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions
+				$this->log_failure( $provider->name(), 'stream', $e );
+			}
+		}
+
+		throw new RuntimeException( esc_html( implode( ' | ', $errors ) ) );
+	}
+
+	/**
 	 * Chat.
 	 *
 	 * @param array $messages Messages.

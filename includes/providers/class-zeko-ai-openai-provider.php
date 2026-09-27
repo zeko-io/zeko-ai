@@ -77,6 +77,86 @@ class Zeko_AI_OpenAI_Provider extends Zeko_AI_Provider {
 	}
 
 	/**
+	 * Whether this provider can stream.
+	 */
+	public function supports_streaming(): bool {
+		return true;
+	}
+
+	/**
+	 * Streamed chat completion. Reads the live SSE stream from
+	 * /chat/completions and emits content deltas as they arrive; usage is
+	 * collected from the 'include_usage' stream option when the endpoint
+	 * supports it.
+	 *
+	 * @param array    $messages Messages.
+	 * @param array    $opts Opts.
+	 * @param callable $on_chunk Chunk callback.
+	 */
+	public function stream( array $messages, array $opts, callable $on_chunk ): array {
+		$body = array(
+			'model'          => $this->model(),
+			'messages'       => $messages,
+			'temperature'    => isset( $opts['temperature'] ) ? (float) $opts['temperature'] : 0.7,
+			'stream'         => true,
+			'stream_options' => array( 'include_usage' => true ),
+		);
+		if ( isset( $opts['max_tokens'] ) ) {
+			$body['max_tokens'] = (int) $opts['max_tokens'];
+		}
+
+		$endpoint = apply_filters( 'zeko_ai_openai_endpoint', $this->base_url() . '/chat/completions' );
+		$headers  = array(
+			'Authorization' => 'Bearer ' . $this->api_key(),
+			'Content-Type'  => 'application/json',
+		);
+
+		$content = '';
+		$usage   = array();
+		$buffer  = '';
+
+		$this->stream_request(
+			$endpoint,
+			$headers,
+			wp_json_encode( $body ),
+			function ( string $bytes ) use ( &$buffer, &$content, &$usage, $on_chunk ): void {
+				$this->consume_sse(
+					$bytes,
+					$buffer,
+					function ( string $payload ) use ( &$content, &$usage, $on_chunk ): void {
+						if ( '[DONE]' === $payload ) {
+							return;
+						}
+						$json = json_decode( $payload, true );
+						if ( ! is_array( $json ) ) {
+							return;
+						}
+						$delta = $json['choices'][0]['delta']['content'] ?? null;
+						if ( is_string( $delta ) && '' !== $delta ) {
+							$content .= $delta;
+							$on_chunk( $delta );
+						}
+						if ( isset( $json['usage'] ) && is_array( $json['usage'] ) ) {
+							$usage = $json['usage'];
+						}
+					}
+				);
+			}
+		);
+
+		return array(
+			'content'    => $content,
+			'tokens_in'  => (int) ( $usage['prompt_tokens'] ?? $this->estimate_tokens( $this->flatten( $messages ) ) ),
+			'tokens_out' => (int) ( $usage['completion_tokens'] ?? $this->estimate_tokens( $content ) ),
+			'model'      => $this->model(),
+			'raw'        => array(
+				'stream' => true,
+				'usage'  => $usage,
+			),
+		);
+	}
+
+	/**
 	 * Moderate.
 	 *
 	 * @param string $text Text.

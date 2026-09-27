@@ -157,7 +157,7 @@ class Zeko_AI_Admin {
 			<p>
 				<strong><?php esc_html_e( 'Active provider:', 'zeko-ai' ); ?></strong>
 					<?php echo esc_html( $provider->name() ); ?> · <?php echo esc_html( $provider->model() ); ?>
-				(<?php echo esc_html( 'mock' === $settings['provider'] ? __( 'offline mock, no keys required', 'zeko-ai' ) : __( 'live API', 'zeko-ai' ) ); ?>)
+				(<?php echo esc_html( in_array( $settings['provider'], array( 'mock', 'agent' ), true ) ? __( 'offline, no API keys required', 'zeko-ai' ) : __( 'live API', 'zeko-ai' ) ); ?>)
 				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:inline;margin-left:8px;">
 					<?php wp_nonce_field( 'zeko_ai_test_provider' ); ?>
 					<input type="hidden" name="action" value="zeko_ai_test_provider" />
@@ -172,17 +172,21 @@ class Zeko_AI_Admin {
 						<th scope="row"><label for="zeko_ai_provider"><?php esc_html_e( 'Provider', 'zeko-ai' ); ?></label></th>
 						<td>
 							<select name="zeko_ai_settings[provider]" id="zeko_ai_provider">
-								<option value="mock" <?php selected( $settings['provider'], 'mock' ); ?>><?php esc_html_e( 'Mock (offline, deterministic)', 'zeko-ai' ); ?></option>
-								<option value="agent" <?php selected( $settings['provider'], 'agent' ); ?>><?php esc_html_e( 'Community Agent (offline, self-training)', 'zeko-ai' ); ?></option>
-								<option value="openai" <?php selected( $settings['provider'], 'openai' ); ?>><?php esc_html_e( 'OpenAI', 'zeko-ai' ); ?></option>
-								<option value="anthropic" <?php selected( $settings['provider'], 'anthropic' ); ?>><?php esc_html_e( 'Anthropic', 'zeko-ai' ); ?></option>
-								<option value="openrouter" <?php selected( $settings['provider'], 'openrouter' ); ?>><?php esc_html_e( 'OpenRouter', 'zeko-ai' ); ?></option>
-								<option value="gemini" <?php selected( $settings['provider'], 'gemini' ); ?>><?php esc_html_e( 'Google Gemini', 'zeko-ai' ); ?></option>
-								<option value="groq" <?php selected( $settings['provider'], 'groq' ); ?>><?php esc_html_e( 'Groq', 'zeko-ai' ); ?></option>
-								<option value="deepseek" <?php selected( $settings['provider'], 'deepseek' ); ?>><?php esc_html_e( 'DeepSeek', 'zeko-ai' ); ?></option>
-								<option value="cloud" <?php selected( $settings['provider'], 'cloud' ); ?>><?php esc_html_e( 'Zeko Cloud (hosted AI credits)', 'zeko-ai' ); ?></option>
+								<optgroup label="<?php esc_attr_e( 'ZEKO built-in (offline, no keys)', 'zeko-ai' ); ?>">
+									<option value="agent" <?php selected( $settings['provider'], 'agent' ); ?>><?php esc_html_e( 'Zeko Local Engine (community-trained agent)', 'zeko-ai' ); ?></option>
+									<option value="mock" <?php selected( $settings['provider'], 'mock' ); ?>><?php esc_html_e( 'Mock (offline, deterministic)', 'zeko-ai' ); ?></option>
+								</optgroup>
+								<optgroup label="<?php esc_attr_e( 'External providers (API key required)', 'zeko-ai' ); ?>">
+									<option value="openai" <?php selected( $settings['provider'], 'openai' ); ?>><?php esc_html_e( 'OpenAI', 'zeko-ai' ); ?></option>
+									<option value="anthropic" <?php selected( $settings['provider'], 'anthropic' ); ?>><?php esc_html_e( 'Anthropic', 'zeko-ai' ); ?></option>
+									<option value="openrouter" <?php selected( $settings['provider'], 'openrouter' ); ?>><?php esc_html_e( 'OpenRouter', 'zeko-ai' ); ?></option>
+									<option value="gemini" <?php selected( $settings['provider'], 'gemini' ); ?>><?php esc_html_e( 'Google Gemini', 'zeko-ai' ); ?></option>
+									<option value="groq" <?php selected( $settings['provider'], 'groq' ); ?>><?php esc_html_e( 'Groq', 'zeko-ai' ); ?></option>
+									<option value="deepseek" <?php selected( $settings['provider'], 'deepseek' ); ?>><?php esc_html_e( 'DeepSeek', 'zeko-ai' ); ?></option>
+									<option value="cloud" <?php selected( $settings['provider'], 'cloud' ); ?>><?php esc_html_e( 'Zeko Cloud (hosted AI credits)', 'zeko-ai' ); ?></option>
+								</optgroup>
 							</select>
-							<p class="description"><?php esc_html_e( 'Any external provider selected without its API key automatically falls back to the offline Mock. If a live provider errors at runtime, requests fail over to the next keyed provider, then the Community Agent, then Mock — the site never breaks.', 'zeko-ai' ); ?></p>
+							<p class="description"><?php esc_html_e( 'Selecting an external provider without its API key automatically falls back to the offline Zeko Local Engine. If a live provider errors at runtime, requests fail over to the next keyed provider, then the Zeko Local Engine, then Mock — the site never breaks.', 'zeko-ai' ); ?></p>
 						</td>
 					</tr>
 					<tr>
@@ -253,6 +257,12 @@ class Zeko_AI_Admin {
 					<tr>
 						<th scope="row"><?php esc_html_e( 'Floating widget', 'zeko-ai' ); ?></th>
 						<td><label><input type="checkbox" name="zeko_ai_settings[floating_widget]" value="1" <?php checked( (int) $settings['floating_widget'] ); ?> /> <?php esc_html_e( 'Show the floating AI assistant button on the front-end', 'zeko-ai' ); ?></label></td>
+					</tr>
+					<tr>
+						<th scope="row"><?php esc_html_e( 'Streaming replies', 'zeko-ai' ); ?></th>
+						<td>
+							<label><input type="checkbox" name="zeko_ai_settings[streaming_enabled]" value="1" <?php checked( (int) ( $settings['streaming_enabled'] ?? 1 ) ); ?> /> <?php esc_html_e( 'Stream assistant replies token-by-token (OpenAI, OpenAI-compatible and Anthropic only; offline engines still fall back to a single chunk)', 'zeko-ai' ); ?></label>
+						</td>
 					</tr>
 					<tr>
 						<th scope="row"><?php esc_html_e( 'Community Agent', 'zeko-ai' ); ?></th>
