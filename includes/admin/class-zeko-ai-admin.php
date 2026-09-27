@@ -27,7 +27,7 @@ class Zeko_AI_Admin {
 	public function __construct( Zeko_AI_DB $db ) {
 		$this->db = $db;
 
-		add_action( 'admin_menu', array( $this, 'register_menu' ) );
+		add_action( 'admin_menu', array( $this, 'register_menu' ), 5 );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 
 		add_action( 'admin_post_zeko_ai_moderation_action', array( $this, 'handle_moderation_action' ) );
@@ -60,11 +60,22 @@ class Zeko_AI_Admin {
 
 		add_submenu_page(
 			'zeko-ai',
+			__( 'Zeko AI Settings', 'zeko-ai' ),
+			__( 'Settings', 'zeko-ai' ),
+			'manage_options',
+			'zeko-ai-settings',
+			array( $this, 'render_overview' ),
+			1
+		);
+
+		add_submenu_page(
+			'zeko-ai',
 			__( 'AI Moderation Queue', 'zeko-ai' ),
 			__( 'Moderation', 'zeko-ai' ),
 			'manage_options',
 			'zeko-ai-moderation',
-			array( $this, 'render_moderation' )
+			array( $this, 'render_moderation' ),
+			2
 		);
 
 		add_submenu_page(
@@ -73,7 +84,8 @@ class Zeko_AI_Admin {
 			__( 'Analytics', 'zeko-ai' ),
 			'manage_options',
 			'zeko-ai-analytics',
-			array( $this, 'render_analytics' )
+			array( $this, 'render_analytics' ),
+			3
 		);
 
 		add_submenu_page(
@@ -82,7 +94,8 @@ class Zeko_AI_Admin {
 			__( 'Agent', 'zeko-ai' ),
 			'manage_options',
 			'zeko-ai-agent',
-			array( $this, 'render_agent' )
+			array( $this, 'render_agent' ),
+			4
 		);
 
 		add_submenu_page(
@@ -91,7 +104,8 @@ class Zeko_AI_Admin {
 			__( 'Health', 'zeko-ai' ),
 			'manage_options',
 			'zeko-ai-health',
-			array( $this, 'render_health' )
+			array( $this, 'render_health' ),
+			5
 		);
 
 		add_submenu_page(
@@ -100,7 +114,8 @@ class Zeko_AI_Admin {
 			__( 'Memory', 'zeko-ai' ),
 			'manage_options',
 			'zeko-ai-memory',
-			array( $this, 'render_memory' )
+			array( $this, 'render_memory' ),
+			6
 		);
 	}
 
