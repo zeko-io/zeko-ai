@@ -39,6 +39,26 @@ return array(
 			'answer'   => 'Open your profile, choose Edit profile, then update the email field and confirm the new address from the link we send you.',
 			'module'   => '',
 		),
+		array(
+			'question' => 'How do course certificates work?',
+			'answer'   => 'Course certificates show on your profile and can be shared or downloaded once you finish every lesson.',
+			'module'   => 'learn',
+		),
+		array(
+			'question' => 'How do I leave a course?',
+			'answer'   => 'Open dating settings and choose Remove profile. Removing it takes you off the Zeko matching list.',
+			'module'   => 'love',
+		),
+	),
+
+	// Source type each corpus stands in for, matching what the module plugin
+	// would register (zeko-jobs -> "job", zeko-learn -> "course"). The engine
+	// uses it to keep a browse answer inside the module that was asked for, so
+	// a fixture that claims the wrong type would hide a real defect.
+	'corpus_types' => array(
+		'business' => 'business',
+		'courses'  => 'course',
+		'jobs'     => 'job',
 	),
 
 	'corpus' => array(

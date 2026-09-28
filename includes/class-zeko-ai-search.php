@@ -53,6 +53,17 @@ class Zeko_AI_Search {
 		'new',
 		'like',
 		'things',
+		'show',
+		'get',
+		'list',
+		'see',
+		'view',
+		'browse',
+		'display',
+		'give',
+		'tell',
+		'check',
+		'find out',
 	);
 
 	/**
@@ -388,11 +399,65 @@ class Zeko_AI_Search {
 	}
 
 	/**
+	 * List a source's own newest content, unfiltered. This is what "show me
+	 * jobs" or "any cafes?" actually asks for: a browse, not a search that
+	 * failed. Module search callbacks are written as a title/excerpt LIKE, so
+	 * handing them an empty term yields their latest rows, which is exactly
+	 * the listing a member is asking to see.
+	 *
+	 * Rows come back with score 0.0 and browse=true. They are deliberately NOT
+	 * subject to the relevance floor, which exists to stop a search from
+	 * answering with something irrelevant; a browse was never a relevance
+	 * claim. Callers must only reach this after a real search found nothing,
+	 * and only for the source type the member actually asked for.
+	 *
+	 * @return array<int,array{type:string,label:string,icon:string,id:int,title:string,excerpt:string,url:string,score:float,browse:bool}>
+	 * @param array $types Source types to include (empty = every source).
+	 * @param array $opts  Supports: per_type (int), limit (int).
+	 */
+	public function browse( array $types = array(), array $opts = array() ): array {
+		$per_type = isset( $opts['per_type'] ) ? max( 1, min( 50, (int) $opts['per_type'] ) ) : 5;
+		$limit    = isset( $opts['limit'] ) ? max( 1, min( 200, (int) $opts['limit'] ) ) : 40;
+		$types    = array_values( array_filter( array_map( 'strval', $types ) ) );
+
+		$results = array();
+		foreach ( $this->get_sources() as $source ) {
+			if ( empty( $source['search'] ) || ! is_callable( $source['search'] ) ) {
+				continue;
+			}
+			$type = (string) ( $source['type'] ?? '' );
+			if ( $types && ! in_array( $type, $types, true ) ) {
+				continue;
+			}
+
+			$items = call_user_func( $source['search'], '', $per_type );
+			if ( ! is_array( $items ) ) {
+				continue;
+			}
+			foreach ( $items as $item ) {
+				$results[] = array(
+					'type'    => $type,
+					'label'   => (string) ( $source['label'] ?? '' ),
+					'icon'    => (string) ( $source['icon'] ?? 'dashicons-search' ),
+					'id'      => (int) ( $item['id'] ?? 0 ),
+					'title'   => (string) ( $item['title'] ?? '' ),
+					'excerpt' => (string) ( $item['excerpt'] ?? '' ),
+					'url'     => (string) ( $item['url'] ?? '' ),
+					'score'   => 0.0,
+					'browse'  => true,
+				);
+			}
+		}
+
+		return array_slice( $results, 0, $limit );
+	}
+
+	/**
 	 * Search every source and return a merged, ranked result set.
 	 *
 	 * @return array<int,array{type:string,label:string,icon:string,id:int,title:string,excerpt:string,url:string,score:float}>
-	 * @param string $term * @param array  $opts Supports: per_type (int) results per source, limit (int) overall.
-	 * @param array  $opts Opts.
+	 * @param string $term Term.
+	 * @param array  $opts Supports: per_type (int) results per source, limit (int) overall.
 	 */
 	public function search( string $term, array $opts = array() ): array {
 		$term = trim( (string) $term );

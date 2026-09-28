@@ -77,7 +77,7 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 		'freelance'  => array( 'freelanc', 'project', 'bid', 'gig', 'proposal', 'contract', 'portfolio', 'invoice', 'milestone' ),
 		'shop'       => array( 'shop', 'product', 'buy', 'cart', 'order', 'store' ),
 		'mentor'     => array( 'mentor', 'session', 'coach', 'guidance', 'career advice', 'life coaching' ),
-		'love'       => array( 'date', 'dating', 'match', 'love', 'relationship', 'crush' ),
+		'love'       => array( 'date', 'dating', 'match', 'love', 'relationship', 'crush', 'partner', 'boyfriend', 'girlfriend', 'romance', 'suitor', 'matchmaking' ),
 		'wallet'     => array( 'wallet', 'pay', 'balance', 'transaction', 'payment', 'account number', 'deposit', 'refund', 'payout', 'receive money', 'fund' ),
 		'profile'    => array( 'profile' ),
 		'rewards'    => array( 'reward', 'badge', 'point', 'redeem', 'milestone', 'achievement', 'cashback', 'loyalty', 'tier' ),
@@ -268,7 +268,7 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 
 		$knowledge = null;
 		if ( ! $answered ) {
-			$knowledge = $this->find_best_knowledge( $query );
+			$knowledge = $this->find_best_knowledge( $query, $intent );
 			if ( $knowledge ) {
 				$reply    = (string) $knowledge->answer;
 				$source   = 'knowledge';
@@ -288,7 +288,7 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 		}
 
 		if ( ! $answered ) {
-			$corpus = $this->search_corpus( $this->with_memory( $query, $user_id, $intent ), 5 );
+			$corpus = $this->search_corpus( $this->with_memory( $query, $user_id, $intent ), 5, $intent );
 			if ( $corpus ) {
 				$corpus_titles = array_column( $corpus, 'title' );
 				$reply         = $this->format_corpus( $corpus );
@@ -1121,16 +1121,19 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 	 * returns a row when the match is strong enough, so weak hits still fall
 	 * through to the corpus.
 	 *
-	 * @param string $text Text.
+	 * @param string $text   Text.
+	 * @param string $intent Detected intent.
 	 */
-	private function find_best_knowledge( string $text ) {
+	private function find_best_knowledge( string $text, string $intent = '' ) {
 		if ( ! $this->get_db() ) {
 			return null;
 		}
 		$db = $this->get_db();
 
+		$scope = $this->knowledge_module_scope( $intent );
+
 		$row = $db->find_knowledge( $text );
-		if ( $row ) {
+		if ( $row && $this->knowledge_in_scope( $row, $scope ) ) {
 			return $row;
 		}
 
@@ -1148,9 +1151,11 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 			$candidates = array_merge( $candidates, $db->search_knowledge_tokens( $text_tokens, 30 ) );
 		}
 
-		$best       = null;
-		$best_score = self::SIMILARITY_MIN;
-		$seen       = array();
+		$best        = null;
+		$best_score  = self::SIMILARITY_MIN;
+		$best_q      = -1.0;
+		$best_weight = -1.0;
+		$seen        = array();
 
 		foreach ( $candidates as $candidate ) {
 			$id = (int) $candidate->id;
@@ -1159,10 +1164,59 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 			}
 			$seen[ $id ] = true;
 
-			$score = $this->token_similarity( $text_tokens, $candidate->question );
-			if ( $score >= $best_score ) {
-				$best_score = $score;
-				$best       = $candidate;
+			// A module question must not be answered by another module's
+			// answer. "Where can I find a partner" once came back with a course
+			// certificate, because a love question and a learn answer shared
+			// the word "profile". Rows scoped to the intent, plus the
+			// cross-cutting "general" ones, are the only candidates.
+			if ( ! $this->knowledge_in_scope( $candidate, $scope ) ) {
+				continue;
+			}
+
+			$question_score = $this->token_similarity( $text_tokens, $candidate->question );
+			$score          = $question_score;
+
+			// The answer counts as evidence, but only in two narrow cases,
+			// because a broad answer matches broad words by accident.
+			//
+			// First, the row has to belong to the module being asked about (or
+			// the question is not about any one module). A cross-cutting row
+			// like "Zeko is a community platform that brings jobs, courses,
+			// dating…" contains most of the ecosystem's vocabulary, so token
+			// overlap with it proves nothing.
+			//
+			// Second, EVERY meaningful query word has to be there. Half a match
+			// is not evidence: "where can I find a partner" shares "Zeko" with
+			// any row that mentions the platform, and that used to be enough to
+			// answer a dating question with a course certificate.
+			$module     = (string) ( $candidate->module ?? '' );
+			$own_module = '' !== $module && 'general' !== $module;
+			$may_answer = null === $scope || ( $own_module && $module === $intent );
+			if ( $may_answer && count( $text_tokens ) >= 2 ) {
+				$coverage = $this->token_coverage( $text_tokens, (string) $candidate->answer );
+				if ( $coverage >= 1.0 && $coverage > $score ) {
+					$score = $coverage;
+				}
+			}
+
+			// A row that belongs to the module outranks a cross-cutting row
+			// that asked a more similar question.
+			if ( null !== $scope && ! $own_module ) {
+				$score *= 0.9;
+			}
+
+			// Ties go to the closer question, then to the row an admin weighted
+			// highest, then to the first candidate. Without that last part the
+			// answer depended on which row happened to be scanned last, and two
+			// equally good dating answers swapped places between runs.
+			$weight = (float) ( $candidate->weight ?? 0.0 );
+			if ( $score > $best_score
+				|| ( $score === $best_score && $question_score > $best_q )
+				|| ( $score === $best_score && $question_score === $best_q && $weight > $best_weight ) ) {
+				$best_score  = $score;
+				$best_q      = $question_score;
+				$best_weight = $weight;
+				$best        = $candidate;
 			}
 		}
 
@@ -1170,9 +1224,15 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 	}
 
 	/**
-	 * Lowercase, stopword-free tokens of a question. A shared stopword list
-	 * makes paraphrase matching tolerant of filler words ("how do I", "can
-	 * you", "please tell me").
+	 * Lowercase, stopword-free, lightly stemmed tokens of a question. A shared
+	 * stopword list makes paraphrase matching tolerant of filler words ("how do
+	 * I", "can you", "please tell me"), and hub verbs that carry no topic
+	 * ("find", "need", "show") are stopwords too: they used to sink an
+	 * otherwise perfect match, because every one of them had to be found in the
+	 * stored row. The platform name is deliberately NOT a stopword here, unlike
+	 * in corpus ranking: stored answers really do say "On Zeko Dating…", so it
+	 * is evidence here, and dropping it left a bare "zeko" answerable only by
+	 * Wikipedia's disambiguation page.
 	 *
 	 * @return array<int,string>
 	 * @param string $text Text.
@@ -1220,10 +1280,31 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 			'from',
 			'by',
 			'about',
+			// Hub verbs and hedges: no topic, and they were every bit as
+			// disqualifying as "the" when a stored answer was scored.
+			'find',
+			'search',
+			'show',
+			'get',
+			'need',
+			'want',
+			'give',
+			'list',
+			'know',
+			'check',
+			'look',
+			'looking',
+			'use',
+			'using',
+			'really',
+			'something',
+			'someone',
+			'anything',
+			'stuff',
 		);
 
 		$tokens = preg_split( '/[^a-z0-9]+/i', mb_strtolower( (string) $text ) );
-		$tokens = array_values( array_filter( array_map( 'trim', $tokens ) ) );
+		$tokens = array_values( array_filter( array_map( 'trim', (array) $tokens ) ) );
 
 		$out = array();
 		foreach ( $tokens as $token ) {
@@ -1231,10 +1312,76 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 			if ( mb_strlen( $token ) < 3 || in_array( $token, $stopwords, true ) ) {
 				continue;
 			}
-			$out[] = $token;
+			$out[] = $this->stem_token( $token );
 		}
 
 		return array_values( array_unique( $out ) );
+	}
+
+	/**
+	 * Deliberately crude suffix stripping, applied to both sides of a
+	 * comparison so that a member's phrasing and a stored answer can meet in
+	 * the middle: "date"/"dating", "job"/"jobs", "business"/"businesses",
+	 * "work"/"working". It is not a linguistics project, and it must stay
+	 * prefix-shaped, because the database-side token scan matches with
+	 * LIKE '%token%' and a stem that is not a prefix of the original word
+	 * would stop the row from being found at all.
+	 *
+	 * @param string $token Token.
+	 */
+	private function stem_token( string $token ): string {
+		$length = mb_strlen( $token );
+		if ( $length > 5 && mb_substr( $token, -3 ) === 'ing' ) {
+			$token = mb_substr( $token, 0, -3 );
+		} elseif ( $length > 4 && mb_substr( $token, -2 ) === 'ed' ) {
+			$token = mb_substr( $token, 0, -2 );
+		} elseif ( $length > 4 && mb_substr( $token, -2 ) === 'es' ) {
+			$token = mb_substr( $token, 0, -2 );
+		} elseif ( $length > 3 && mb_substr( $token, -1 ) === 's' ) {
+			$token = mb_substr( $token, 0, -1 );
+		}
+		if ( mb_strlen( $token ) > 3 && mb_substr( $token, -1 ) === 'e' ) {
+			$token = mb_substr( $token, 0, -1 );
+		}
+
+		return $token;
+	}
+
+	/**
+	 * Which knowledge modules may answer an intent. Seeded and learned rows
+	 * carry the module they belong to, so a question about dating is answered
+	 * by dating (or cross-cutting) knowledge and nothing else. Intents that are
+	 * not modules of their own - a greeting, a plain "search for", or a general
+	 * question - impose no scope, because they are not asking about one module.
+	 *
+	 * @param string $intent Detected intent.
+	 * @return array<int,string>|null Null means "any module may answer".
+	 */
+	private function knowledge_module_scope( string $intent ): ?array {
+		$modules = array( 'business', 'jobs', 'learn', 'freelance', 'wallet', 'shop', 'qa', 'love', 'mentor', 'rewards', 'moderation' );
+		if ( ! in_array( $intent, $modules, true ) ) {
+			return null;
+		}
+
+		// 'general' is the cross-cutting bucket: blank, "general", or the
+		// legacy value the seeder writes for rows that belong to no module.
+		return array( $intent, 'general', '' );
+	}
+
+	/**
+	 * Whether a knowledge row is allowed to answer within a scope.
+	 *
+	 * @param object             $row   Knowledge row.
+	 * @param array<int,string>|null $scope Scope from knowledge_module_scope().
+	 */
+	private function knowledge_in_scope( $row, ?array $scope ): bool {
+		if ( null === $scope ) {
+			return true;
+		}
+
+		$module = (string) ( $row->module ?? '' );
+
+		return in_array( '' === $module ? '' : $module, $scope, true );
 	}
 
 	/**
@@ -1254,6 +1401,24 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 		$intersection = array_intersect( $query_tokens, $question_tokens );
 
 		return count( $intersection ) / count( $union );
+	}
+
+	/**
+	 * Share of the query's own tokens that appear anywhere in a row's text.
+	 * Unlike Jaccard this is not diluted by how long the row is, so it answers
+	 * a different question: not "is this the same question" but "does this row
+	 * actually contain what the member asked for".
+	 *
+	 * @param array  $query_tokens Query tokens.
+	 * @param string $text         Question or answer.
+	 */
+	private function token_coverage( array $query_tokens, string $text ): float {
+		$haystack = $this->parse_query_tokens( $text );
+		if ( empty( $query_tokens ) || empty( $haystack ) ) {
+			return 0.0;
+		}
+
+		return count( array_intersect( $query_tokens, $haystack ) ) / count( $query_tokens );
 	}
 
 	/**
@@ -1392,9 +1557,88 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 	 * @param string $text Text.
 	 * @param int    $limit Limit.
 	 */
-	private function search_corpus( string $text, int $limit ): array {
+	/**
+	 * Which corpus source type owns an intent. A module plugin registers its
+	 * source under its own type slug (zeko-jobs -> "job", zeko-learn ->
+	 * "course"), so an intent that belongs to a module also names the one
+	 * source type a browse answer is allowed to come from.
+	 *
+	 * @return array<string,string>
+	 */
+	private function module_source_types(): array {
+		return array(
+			'business'  => 'business',
+			'jobs'      => 'job',
+			'learn'     => 'course',
+			'love'      => 'profile',
+			'mentor'    => 'mentor',
+			'freelance' => 'project',
+			'shop'      => 'product',
+			'qa'        => 'question',
+		);
+	}
+
+	/**
+	 * The words that name a module's own content, so a query that consists of
+	 * nothing else really is "show me jobs" rather than a failed search. Kept
+	 * in step with the intent keywords so both agree on what a module is.
+	 *
+	 * @return array<string,array<int,string>>
+	 */
+	private function module_nouns(): array {
+		return array(
+			'jobs'      => array( 'job', 'jobs' ),
+			'learn'     => array( 'course', 'courses', 'class', 'classes', 'training', 'tutorial' ),
+			'business'  => array( 'business', 'businesses', 'listing', 'listings', 'store', 'stores' ),
+			'love'      => array( 'dating', 'date', 'dates', 'profile', 'profiles', 'match', 'matches' ),
+			'mentor'    => array( 'mentor', 'mentors', 'coach', 'coaches', 'session', 'sessions' ),
+			'freelance' => array( 'project', 'projects', 'gig', 'gigs', 'freelance' ),
+			'shop'      => array( 'product', 'products', 'item', 'items' ),
+			'qa'        => array( 'question', 'questions', 'answer', 'answers' ),
+		);
+	}
+
+	/**
+	 * Whether a member who got nothing back was actually asking to browse a
+	 * module. "Show me jobs" and "any mentors?" name a module and nothing else,
+	 * so the honest answer is that module's latest content. "I need a bank"
+	 * names something specific, and listing every business instead would be
+	 * worse than saying there is no match, so that keeps the no-match answer.
+	 *
+	 * @param string $text   User text.
+	 * @param string $intent Detected intent.
+	 */
+	private function wants_module_browse( string $text, string $intent ): bool {
+		$nouns = $this->module_nouns();
+		if ( ! isset( $nouns[ $intent ] ) ) {
+			return false;
+		}
+
+		$tokens = Zeko_AI_Search::tokens( $text );
+		if ( ! $tokens ) {
+			return false;
+		}
+
+		// Anything left over that is not filler and not the module's own noun
+		// is a real constraint, and a real constraint must be honoured.
+		$left = array_diff( $tokens, Zeko_AI_Search::GENERIC_TERMS, $nouns[ $intent ] );
+
+		return array() === array_values( $left );
+	}
+
+	/**
+	 * Search the corpus for an answer, falling back to the exact source
+	 * callbacks, then to individual tokens, then - only when the member named
+	 * no specific thing and asked for a module by its own noun - to that
+	 * module's listing.
+	 *
+	 * @param string $text   Text.
+	 * @param int    $limit  Limit.
+	 * @param string $intent Detected intent.
+	 */
+	private function search_corpus( string $text, int $limit, string $intent = '' ): array {
 		$ttl = $this->cache_ttl();
-		$key = 'zeko_ai_agent_corpus_' . md5( $text . '|' . $limit );
+		$key = 'zeko_ai_agent_corpus_' . md5( $text . '|' . $limit . '|' . $intent );
 
 		if ( $ttl > 0 ) {
 			$cached = get_transient( $key );
@@ -1423,13 +1667,14 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 		// a field the reply never shows (or a source that simply returns its
 		// whole set) would otherwise surface as an answer, and the chat would
 		// confidently present a record that has nothing to do with the
-		// question. search_tokens() already applies the same rule, so both
-		// paths now agree on what counts as a match.
+		// question. search_tokens() already applies the same rule, so both.
+		// paths now agree on what counts as a match. Rows tagged browse=true
+		// are exempt: see the browse fallback below for why that is not a hole.
 		$results = array_values(
 			array_filter(
 				$results,
 				static function ( array $result ): bool {
-					return (float) ( $result['score'] ?? 0.0 ) > 0.0;
+					return ! empty( $result['browse'] ) || (float) ( $result['score'] ?? 0.0 ) > 0.0;
 				}
 			)
 		);
@@ -1447,6 +1692,23 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 			);
 			if ( count( $token_results ) > count( $results ) ) {
 				$results = $token_results;
+			}
+		}
+
+		// Browse fallback: "show me jobs" leaves the search with nothing to work
+		// with, because the module's own noun is all it says. That is a request
+		// to see the module, so show it - and only that one module.
+		if ( ! $results && '' !== $intent && method_exists( $search, 'browse' ) && $this->wants_module_browse( $text, $intent ) ) {
+			$types = $this->module_source_types();
+			$rows  = $search->browse(
+				isset( $types[ $intent ] ) ? array( $types[ $intent ] ) : array(),
+				array(
+					'per_type' => 3,
+					'limit'    => $limit,
+				)
+			);
+			if ( $rows ) {
+				$results = $rows;
 			}
 		}
 
