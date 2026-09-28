@@ -73,7 +73,7 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 		'jobs'       => array( 'job', 'career', 'careers', 'hiring', 'vacancy', 'resume', 'interview', 'application', 'applications', 'employer', 'salary' ),
 		'learn'      => array( 'course', 'learn', 'lesson', 'quiz', 'certificate', 'class', 'training', 'tutorial', 'tutor', 'study', 'enroll' ),
 		'qa'         => array( 'question', 'q&a', 'answer', 'ask', 'discussion', 'forum', 'thread' ),
-		'business'   => array( 'business', 'businesses', 'company', 'restaurant', 'restaurants', 'cafe', 'café', 'bistro', 'gym', 'salon', 'directory', 'barber', 'plumber', 'hotel', 'pharmacy', 'supermarket', 'clinic', 'dentist', 'mechanic', 'spa', 'bakery', 'laundromat', 'locksmith', 'photographer', 'contractor', 'tattoo', 'venue', 'menu', 'takeout', 'delivery', 'opening hours', 'business hours', 'hours of operation', 'book a service', 'book a table', 'appointment', 'booking', 'near me', 'nearby', 'storefront', 'store hours', 'hours', 'listing', 'open now' ),
+		'business'   => array( 'business', 'businesses', 'company', 'restaurant', 'restaurants', 'cafe', 'café', 'bistro', 'gym', 'salon', 'directory', 'barber', 'plumber', 'hotel', 'pharmacy', 'supermarket', 'clinic', 'dentist', 'mechanic', 'spa', 'bakery', 'laundromat', 'locksmith', 'photographer', 'contractor', 'tattoo', 'venue', 'menu', 'takeout', 'delivery', 'opening hours', 'business hours', 'hours of operation', 'book a service', 'book a table', 'appointment', 'booking', 'near me', 'nearby', 'storefront', 'store hours', 'hours', 'listing', 'open now', 'bank', 'accountant', 'florist', 'tailor', 'hardware store', 'electronics store', 'furniture store', 'shoe store', 'car wash', 'dry cleaning', 'butcher', 'travel agent' ),
 		'freelance'  => array( 'freelanc', 'project', 'bid', 'gig', 'proposal', 'contract', 'portfolio', 'invoice', 'milestone' ),
 		'shop'       => array( 'shop', 'product', 'buy', 'cart', 'order', 'store' ),
 		'mentor'     => array( 'mentor', 'session', 'coach', 'guidance', 'career advice', 'life coaching' ),
@@ -309,7 +309,7 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 			}
 		}
 
-		if ( ! $answered && ! empty( $this->settings['agent_world_knowledge'] ) ) {
+		if ( ! $answered && ! empty( $this->settings['agent_world_knowledge'] ) && ! $this->is_ecosystem_request( $query, $intent ) ) {
 			$world = $this->fetch_world_knowledge( $query );
 			if ( '' !== $world ) {
 				$reply    = $world;
@@ -1735,6 +1735,31 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 	}
 
 	/**
+	 * Whether the member is asking the ecosystem for something rather than
+	 * asking a general-knowledge question. "I need a bank" is a request for a
+	 * listing, not a request for an encyclopedia entry, and Wikipedia's search
+	 * API fuzzy-matches such a sentence to something unrelated (it once
+	 * answered "I need a bank" with a song). When the corpus has no match the
+	 * module's own fallback is a far better answer. Definitional questions
+	 * ("what is a bank?") are left alone, so world knowledge still works where
+	 * it is genuinely useful.
+	 *
+	 * @param string $text   User text.
+	 * @param string $intent Detected intent.
+	 */
+	private function is_ecosystem_request( string $text, string $intent ): bool {
+		if ( 'general' === $intent ) {
+			return false;
+		}
+
+		$text = mb_strtolower( trim( wp_strip_all_tags( (string) $text ) ) );
+
+		$pattern = '/\b(i need|i want|find me|find a|show me|list|search for|looking for|get me|book|order|buy|recommend)\b/';
+
+		return 1 === preg_match( $pattern, $text );
+	}
+
+	/**
 	 * Optional world-knowledge lookup. Free, keyless and off by default;
 	 * every failure degrades silently to a plain fallback answer. Successes
 	 * and misses are cached in transients so a busy site never hammers the
@@ -1963,6 +1988,15 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 				} else {
 					$weight = $length < 5 ? 2 : $length;
 				}
+				// A keyword sitting inside a prepositional phrase names what the
+				// question is *about*, not what it is about: in "I need a mentor
+				// for my career" the subject is the mentor and "career" only
+				// qualifies it. Without this, both score the same length and the
+				// later "career" wins the tie on position, which sent members to
+				// the jobs module asking about mentors.
+				if ( $this->is_modifier_match( $text, $keyword ) ) {
+					$weight = max( 1, (int) floor( $weight / 2 ) );
+				}
 				$score += $weight;
 				if ( false !== mb_strpos( $keyword, ' ' ) ) {
 					$score += 6;
@@ -1983,6 +2017,34 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 		}
 
 		return $best_intent;
+	}
+
+	/**
+	 * Whether a matched keyword is only qualifying the real subject, i.e. it
+	 * appears inside a prepositional phrase introduced by a possessive
+	 * ("a mentor for my career", "help with my portfolio"). A possessive marks
+	 * what the question is *about*; the module word the member is actually
+	 * asking about sits outside the phrase. An article does not: in "search for
+	 * a job" the job is the object of the verb, not a modifier, so only
+	 * possessives qualify here.
+	 *
+	 * @param string $text    Lowercased query.
+	 * @param string $keyword Matched keyword.
+	 */
+	private function is_modifier_match( string $text, string $keyword ): bool {
+		$at = mb_strpos( $text, $keyword );
+		if ( false === $at || 0 === $at ) {
+			return false;
+		}
+
+		$before = mb_substr( $text, max( 0, $at - 24 ), $at );
+		if ( ! preg_match( '/\b(for|about|with|in|on|of|from)\s+(my|our|me|their|his|her)\s*$/i', $before ) ) {
+			return false;
+		}
+
+		// A multi-word keyword is its own phrase ("career advice"), so it names
+		// the topic even when it trails a preposition.
+		return false === mb_strpos( $keyword, ' ' );
 	}
 
 	/**

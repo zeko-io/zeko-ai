@@ -61,6 +61,31 @@ work out of the box keyless on shared hosting and degrade cleanly.
 
 Priorities: P0/P1 = unblocks everything; all phases optional behind settings, all fail-soft.
 
+### Phase 0 — Evaluation harness for the deterministic engine — HIGH, in progress
+Everything below this line adds capability. This measures whether the capability that
+already exists actually works, and it is what every later change must be measured
+against.
+- **Case set** (`eval/cases.php`): real member phrasings, not keyword permutations, each
+  asserting the *observable* outcome — `intent`, `source`, `contains`, `lacks` — so a
+  wrong-but-plausible answer still fails. Covers greeting, intent routing, retrieval
+  relevance, knowledge, entity resolution and ambiguity.
+- **Fixtures** (`eval/fixtures.php`): deterministic business / course / job / knowledge /
+  entity rows, so a case can never pass by accident against whatever the dev database
+  happens to contain.
+- **Runner** (`tests/EvalTest.php`): one hermetic case per test with corpus + resolver
+  source filters registered, so the whole run is offline and deterministic. Guard rails
+  (`MINIMUM_CASES`, `MAX_KNOWN_GAPS`) make the set fail when it quietly shrinks.
+- **`known_gap` flag**: a known defect is recorded as a *named, skipped* case with a note
+  explaining the root cause and the fix, instead of being deleted or papered over. Gaps
+  are expected to shrink; a new one must be justified.
+- **Rule of thumb**: a keyword-table edit ships only with a case that fails before it and
+  passes after. The harness found the bare-`zeko` title-prefix leak, the
+  `mentor for my career` intent tie-break, and a `job` vocabulary hole on its first run.
+- Next targets, in order: knowledge reachability (score similarity against
+  question **+ answer**, and drop hub words like "can I find" from the token-AND net),
+  module-noun retrieval (`"show me jobs"`), then intent-vocabulary derived from real
+  module categories rather than a hand-written list.
+
 ### Phase 1 — BYO Local Endpoint provider (`local`) — HIGH
 Open the full cloud experience to self-hosted models with zero new transport code.
 - New `Zeko_AI_Local_Provider extends Zeko_AI_OpenAI_Compat_Provider` (`slug() => 'local'`):
@@ -164,6 +189,7 @@ regenerated, admin keeps provider-agnostic wording, remove test hooks), then sub
 
 | Phase | Work | Priority | Order | Unlocks |
 |---|---|---|---|---|
+| 0 | Evaluation harness for the deterministic engine | High | 0 (done, growing) | Measurable baseline; regression net for every change below |
 | 1 | BYO Local Endpoint provider | High | 1 | Real local LLM + streaming + moderation + embeddings source |
 | 2 | Tool calling (contract + registry + loop) | High | 2 (can pair with 1) | True agent behaviour on any LLM provider |
 | 3 | Optional embeddings RAG | Medium | 3 | Semantic grounding, personal RAG completion |

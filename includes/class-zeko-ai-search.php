@@ -513,6 +513,14 @@ class Zeko_AI_Search {
 			return $score;
 		}
 
+		// A query that is nothing but the platform's own name ("zeko") is not a
+		// topic. It must not score a hit here either: the title-prefix rule
+		// below would otherwise match every record whose name happens to start
+		// with "Zeko", and the relevance floor would keep it as the answer.
+		if ( in_array( $term, self::PLATFORM_TERMS, true ) ) {
+			return $score;
+		}
+
 		if ( $title === $term ) {
 			$score += 100.0;
 		} elseif ( 0 === mb_strpos( $title, $term ) ) {
