@@ -1419,6 +1419,21 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 			)
 		);
 
+		// Relevance floor. A source that returns rows for a term it matched in
+		// a field the reply never shows (or a source that simply returns its
+		// whole set) would otherwise surface as an answer, and the chat would
+		// confidently present a record that has nothing to do with the
+		// question. search_tokens() already applies the same rule, so both
+		// paths now agree on what counts as a match.
+		$results = array_values(
+			array_filter(
+				$results,
+				static function ( array $result ): bool {
+					return (float) ( $result['score'] ?? 0.0 ) > 0.0;
+				}
+			)
+		);
+
 		// Paraphrase fallback: when the verbatim phrase misses the corpus, run.
 		// each meaningful token across the same sources so requests like.
 		// "I'd like to learn web development" still surface the right rows.

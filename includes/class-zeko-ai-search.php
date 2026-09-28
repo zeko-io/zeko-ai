@@ -19,6 +19,10 @@ class Zeko_AI_Search {
 	/**
 	 * GENERIC TERMS.
 	 *
+	 * Filler and content-type words that carry no topic information. They are
+	 * skipped when ranking a paraphrase match, but may still be searched on
+	 * their own as a last resort ("jobs" is the entire query).
+	 *
 	 * @var mixed
 	 */
 	const GENERIC_TERMS = array(
@@ -49,6 +53,21 @@ class Zeko_AI_Search {
 		'new',
 		'like',
 		'things',
+	);
+
+	/**
+	 * PLATFORM TERMS.
+	 *
+	 * The platform's own name. Unlike filler, it is never a topic and never
+	 * worth searching on: almost every member query says "on Zeko", so letting
+	 * it decide a match meant any record titled "Zeko …" satisfied a query it
+	 * had nothing to do with ("can I find a date on zeko?" answered with a
+	 * cafe, "what is zeko?" answered with a cafe).
+	 *
+	 * @var mixed
+	 */
+	const PLATFORM_TERMS = array(
+		'zeko',
 	);
 
 	/**
@@ -230,6 +249,19 @@ class Zeko_AI_Search {
 		}
 		$terms = array_slice( $terms, 0, 4 );
 
+		// The platform's own name is never a ranking term and never a search
+		// term. Filler is: when every term is filler ("find jobs") it is still
+		// the whole question, so fall back to it. When the only term is the
+		// platform name ("what is zeko?") there is nothing to look up, and a
+		// record titled "Zeko …" must not hijack the answer.
+		$ranking = array_values( array_unique( array_diff( $terms, self::GENERIC_TERMS, self::PLATFORM_TERMS ) ) );
+		if ( ! $ranking ) {
+			$ranking = array_values( array_unique( array_diff( $terms, self::PLATFORM_TERMS ) ) );
+		}
+		if ( ! $ranking ) {
+			return array();
+		}
+
 		$seen  = array();
 		$items = array();
 		foreach ( $this->get_sources() as $source ) {
@@ -263,11 +295,6 @@ class Zeko_AI_Search {
 					);
 				}
 			}
-		}
-
-		$ranking = array_diff( $terms, self::GENERIC_TERMS );
-		if ( empty( $ranking ) ) {
-			$ranking = $terms;
 		}
 
 		$scored = array();
@@ -468,6 +495,10 @@ class Zeko_AI_Search {
 	 * Deterministic relevance score: exact/prefix title matches weigh far
 	 * more than a single keyword hit in the excerpt.
 	 *
+	 * Filler words and the platform's own name are not evidence of a match, so
+	 * they are skipped: otherwise every "… on Zeko" query scored a hit on any
+	 * record titled "Zeko …" and unrelated rows outranked real ones.
+	 *
 	 * @param string $term Term.
 	 * @param string $title Title.
 	 * @param string $excerpt Excerpt.
@@ -492,6 +523,9 @@ class Zeko_AI_Search {
 
 		$tokens = array_values( array_filter( explode( ' ', $term ) ) );
 		foreach ( $tokens as $token ) {
+			if ( mb_strlen( $token ) < 3 || in_array( $token, self::GENERIC_TERMS, true ) || in_array( $token, self::PLATFORM_TERMS, true ) ) {
+				continue;
+			}
 			if ( false !== mb_strpos( $title, $token ) ) {
 				$score += 15.0;
 			}
