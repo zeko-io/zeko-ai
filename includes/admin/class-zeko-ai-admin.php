@@ -201,7 +201,7 @@ class Zeko_AI_Admin {
 									<option value="cloud" <?php selected( $settings['provider'], 'cloud' ); ?>><?php esc_html_e( 'Zeko Cloud (hosted AI credits)', 'zeko-ai' ); ?></option>
 								</optgroup>
 							</select>
-							<p class="description"><?php esc_html_e( 'Selecting an external provider without its API key automatically falls back to the offline Zeko Local Engine. If a live provider errors at runtime, requests fail over to the next keyed provider, then the Zeko Local Engine, then Mock — the site never breaks.', 'zeko-ai' ); ?></p>
+							<p class="description"><?php esc_html_e( 'The Zeko Local Engine is the default and needs no API key. Selecting an external provider without its API key automatically falls back to the offline Mock provider. If a live provider errors at runtime, requests fail over to the next keyed provider, then the Zeko Local Engine, then Mock — the site never breaks.', 'zeko-ai' ); ?></p>
 						</td>
 					</tr>
 					<tr>

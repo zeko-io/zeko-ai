@@ -3,7 +3,8 @@ REMOTE SERVICES — Zeko AI
 
 Zeko AI is the most network-active plugin in the ecosystem. It only talks to
 providers when an administrator configures them; with no keys set, the plugin
-runs fully offline in Mock mode. Every remote endpoint below is HTTPS and
+runs fully offline on the built-in Zeko Local Engine (or the Mock provider).
+Every remote endpoint below is HTTPS and
 filterable (zeko_ai_*_endpoint / zeko_ai_*_remote_request) so the destination
 is always auditable and events can be stubbed or suppressed.
 

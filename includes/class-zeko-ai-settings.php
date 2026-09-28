@@ -33,7 +33,7 @@ class Zeko_AI_Settings {
 	 */
 	public static function defaults(): array {
 		return array(
-			'provider'                => 'mock',
+			'provider'                => 'agent',
 			'openai_key'              => '',
 			'openai_model'            => 'gpt-4o-mini',
 			'openai_base_url'         => 'https://api.openai.com/v1',

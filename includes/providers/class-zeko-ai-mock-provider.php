@@ -174,7 +174,7 @@ class Zeko_AI_Mock_Provider extends Zeko_AI_Provider {
 			return 'Zeko AI reviews community content for harmful, abusive or spammy material. Anything flagged lands in the moderation queue for a human to confirm.';
 		}
 		if ( false !== mb_strpos( $text, 'help' ) || false !== mb_strpos( $text, 'hi' ) || false !== mb_strpos( $text, 'hello' ) ) {
-			return "I'm Zeko AI, your ecosystem assistant. I can help you navigate jobs, courses, Q&A, shopping, freelancing, mentoring, dating and rewards. Try asking about any of those.";
+			return "I'm Zeko AI, your ecosystem assistant. I can help you navigate jobs, courses, Q&A, shopping, freelancing, mentoring, dating, wallet and rewards. Try asking about any of those.";
 		}
 
 		return "Here's the short version: I found no specific match for that, but I can point you around the ecosystem. Ask me about jobs, courses, Q&A, freelance, shop, mentoring, dating, wallet, or rewards and I'll take it from there. (Tone: {$tone})";

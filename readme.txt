@@ -12,7 +12,7 @@ AI layer for the Zeko ecosystem: assistant/chatbot, unified search, recommendati
 
 == Description ==
 
-Zeko AI brings an AI layer to the Zeko ecosystem. It provides an assistant/chatbot with memory, a unified search across every Zeko module, personalized recommendations, content moderation, and usage analytics — all through a provider-agnostic client that supports Mock, OpenAI, Anthropic, OpenRouter, Gemini, Groq, and DeepSeek.
+Zeko AI brings an AI layer to the Zeko ecosystem. It provides an assistant/chatbot with memory, a unified search across every Zeko module, personalized recommendations, content moderation, and usage analytics — all through a provider-agnostic client that supports the built-in Zeko Local Engine, Mock, OpenAI, Anthropic, OpenRouter, Gemini, Groq, and DeepSeek.
 
 = Features =
 
@@ -25,7 +25,7 @@ Zeko AI brings an AI layer to the Zeko ecosystem. It provides an assistant/chatb
 * **Usage Analytics** — Per-user, per-provider usage and estimated cost tracking
 * **Radar Digest** — Scheduled weekly digest of relevant ecosystem activity for each user
 * **Admin Tools** — Provider health, teach/gaps, memory browser, and provider log
-* **Provider Agnostic** — Mock / OpenAI / Anthropic / OpenRouter / Gemini / Groq / DeepSeek with keyless mock fallback
+* **Provider Agnostic** — Zeko Local Engine (keyless, default) / Mock / OpenAI / Anthropic / OpenRouter / Gemini / Groq / DeepSeek, with automatic failover down the chain
 
 = Shortcodes =
 
@@ -40,15 +40,15 @@ Zeko AI brings an AI layer to the Zeko ecosystem. It provides an assistant/chatb
 
 1. Upload the `zeko-ai` folder to `/wp-content/plugins/`
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Add one or more provider API keys under Zeko AI > Settings (the plugin runs in Mock mode without keys)
+3. Optionally switch provider under Zeko AI > Settings (out of the box the plugin runs its keyless, offline Zeko Local Engine)
 4. Create pages and add the shortcodes above
 
 == External Services ==
 
 Zeko AI is provider-agnostic. **No external service is contacted by default**:
-with no API keys configured the plugin runs entirely in a local Mock (keyless)
-mode. When you add a provider key, data is sent only when a feature you use
-actually calls that provider.
+with no API keys configured the plugin runs entirely on the built-in Zeko
+Local Engine (keyless, offline). When you add a provider key, data is sent
+only when a feature you use actually calls that provider.
 
 * **AI model providers (OpenAI, Anthropic, OpenRouter, Gemini, Groq, DeepSeek)**
   — What is sent: your provider API key and the content of the request
@@ -98,7 +98,7 @@ calls only, documented in `REMOTE-SERVICES.txt`.
 
 = Do I need an AI provider API key? =
 
-No. Without keys the plugin falls back to a Mock provider so every flow can be tested. Add an OpenAI, Anthropic, or other provider key to enable real generation.
+No. Without keys the plugin runs its own offline Zeko Local Engine, and a deterministic Mock provider is included so every flow can be tested. Add an OpenAI, Anthropic, or other provider key under Zeko AI > Settings to enable hosted generation.
 
 = Which modules does search cover? =
 
@@ -122,7 +122,7 @@ Deleting the plugin drops all Zeko AI tables, clears its crons (maintenance, rad
 
 == Troubleshooting ==
 
-* No answer? Without an API key the Mock provider runs; add a provider key under Zeko AI > Settings for real generation.
+* No answer? Out of the box the offline Zeko Local Engine answers; check the provider under Zeko AI > Settings, and add a provider key for hosted generation.
 * Provider errors? Check the provider log and health screen in the admin.
 * Search misses content? Search uses `zeko_ai_search_sources`; confirm the target module is active and indexed.
 
@@ -134,6 +134,8 @@ Deleting the plugin drops all Zeko AI tables, clears its crons (maintenance, rad
 == Changelog ==
 
 = 0.5.1 =
+* Greetings fixed: "Hello" / "hey there" / "how are you?" are answered as small talk instead of being treated as a search term, so the assistant no longer answers a greeting with unrelated listings and outbound web-search results; the reply is personalized with the member's first name and never reaches the corpus or the web
+* The offline Zeko Local Engine is now the default provider on a fresh install (Mock stays available as a deterministic test/offline stub, and the failover chain is unchanged); the settings defaults have a single source of truth so the runtime default can no longer drift from the documented one
 * Community agent keeps full command of every module: the knowledge paraphrase recall now always runs a strict token-AND net (>= 2 meaningful words), so a stale/missing InnoDB FULLTEXT index can no longer silently wipe "learned answer" retrieval
 * Corpus paraphrase ranking matches MySQL's accent-insensitive behaviour (`Zeko_AI_Search::fold` folds Latin diacritics: "cafe" surfaces a business named "Café"), and an item whose title carries at least half of a query's distinctive terms (e.g. "Zeko Central Café & Bistro" for "find me a cafe or restaurant") beats loose rows that only mention the words
 * Business Directory agent intent broadened (barber, plumber, hotel, clinic, dentist, mechanic, spa, bakery, near me, opening hours, booking/appointment, …), with the business fallback message listing concrete service categories
@@ -142,7 +144,7 @@ Deleting the plugin drops all Zeko AI tables, clears its crons (maintenance, rad
 * Direct "how do I create a business account" answer added to the seeds; business intent fallback now also links the real Add-your-business form (`/add-business/`)
 * Intent detection broadened for most modules (salary/applications, tutorials/study, forums, pharmacies/bistros/open-now, portfolios/invoices, career advice, deposits/refunds/payouts, achievements/cashback, flagging) and made fully overridable via the `zeko_ai_agent_intents` filter
 * Auto-learning hardened: bare "good"/"nice"/"help" no longer counts as affirmation, greetings are never learned, one-word questions are skipped, and logged-in users are capped at a few learned rows per day (`zeko_ai_agent_auto_learn_daily_cap`) so junk never floods the knowledge base
-* Tests: 265 tests / 728 assertions — all green
+* Tests: 331 tests / 1042 assertions — all green (the suite now starts from the plugin defaults instead of the host site's saved settings, so a saved API key or an enabled outbound feature on a dev machine can no longer fail unrelated tests)
 
 = 0.5.0 =
 * Profile hub, personal RAG, recap memory, provider health, memory browser, radar digest

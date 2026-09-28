@@ -177,6 +177,49 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 			);
 		}
 
+		// Social openers ("Hello", "hey there", "how are you?") are small
+		// talk, not a question. Without this guardrail they were treated as a
+		// search term: the corpus returned whatever happened to contain the
+		// word "hello" and the web search fired an outbound query for it, so
+		// a greeting came back as unrelated listings plus search-engine noise.
+		// Answer it directly and never let it reach retrieval.
+		if ( $this->is_social_open( $user_text ) ) {
+			$intent = 'greeting';
+			$reply  = $this->greeting_reply( $user_id );
+
+			// Remember durable facts the member volunteers this turn.
+			if ( $learning && $user_id > 0 && $this->get_db() && function_exists( 'zeko_ai' ) && method_exists( zeko_ai(), 'get_memory' ) ) {
+				zeko_ai()->get_memory()->capture( $user_id, $user_text );
+			}
+
+			$this->log_query( $user_id, $user_text, $intent, true, 'greeting', $learning );
+
+			return array(
+				'content'    => $reply,
+				'tokens_in'  => $this->estimate_tokens( $this->flatten( $messages ) ),
+				'tokens_out' => $this->estimate_tokens( $reply ),
+				'model'      => $this->model(),
+				'raw'        => array(
+					'intent'        => $intent,
+					'source'        => 'greeting',
+					'answered'      => true,
+					'knowledge_id'  => 0,
+					'module'        => '',
+					'confidence'    => 0.95,
+					'guarded'       => false,
+					'follow_up'     => false,
+					'corpus_titles' => array(),
+					'web_results'   => array(),
+					'entity'        => array(),
+					'suggestions'   => $this->filter_suggestions( $this->intent_prompts( 'greeting' ), $user_text ),
+					'actions'       => $this->actions_for_intent( $intent, $user_id ),
+					'memory'        => ( $user_id > 0 && $learning && function_exists( 'zeko_ai' ) && method_exists( zeko_ai(), 'get_memory' ) )
+						? zeko_ai()->get_memory()->facts( $user_id )
+						: array(),
+				),
+			);
+		}
+
 		// Multi-turn context: a follow-up turn inherits the previous user.
 		// question so retrieval and intent detection stay on-topic.
 		$query     = $this->resolve_query_text( $messages, $user_text );
@@ -754,6 +797,202 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 		}
 
 		return trim( $query . ' ' . implode( ' ', $bits ) );
+	}
+
+	/**
+	 * True when a message is only a social opener ("hello", "hey there",
+	 * "how are you?", "good morning") rather than a real question.
+	 *
+	 * Deliberately strict, because the cost of a false positive is a member's
+	 * question being answered with a greeting. A message counts as small talk
+	 * only when it is short AND made entirely of social words AND carries at
+	 * least one opener. So "hello" and "how are you doing today?" match,
+	 * while "hello, I need help with my portfolio" and "help me find a job"
+	 * do not, and neither does anything long enough to be a real request.
+	 *
+	 * @param string $text Text.
+	 */
+	private function is_social_open( string $text ): bool {
+		$low = mb_strtolower( trim( (string) $text ) );
+		if ( '' === $low ) {
+			return false;
+		}
+
+		// Normalize contractions before punctuation is dropped, so "what's up"
+		// becomes "whats up" instead of leaking a stray "s" token.
+		$low = strtr(
+			$low,
+			array(
+				"what's" => 'whats',
+				"how's"  => 'hows',
+				"how're" => 'howre',
+				"who's"  => 'whos',
+				"i'm"    => 'im',
+				"you're" => 'youre',
+				"let's"  => 'lets',
+			)
+		);
+
+		$tokens = preg_split( '/[^\p{L}\p{N}]+/u', $low );
+		$tokens = array_values( array_filter( array_map( 'trim', (array) $tokens ) ) );
+		if ( empty( $tokens ) || count( $tokens ) > 6 ) {
+			return false;
+		}
+
+		$openers = array(
+			'hi',
+			'hello',
+			'hey',
+			'hiya',
+			'heya',
+			'howdy',
+			'hola',
+			'yo',
+			'sup',
+			'wassup',
+			'greetings',
+			'greeting',
+			'morning',
+			'afternoon',
+			'evening',
+			'how',
+			'whats',
+			'hows',
+			'howre',
+			'whos',
+		);
+
+		// Every other word allowed in a short opener: pronouns, question words
+		// and the names the member may address the assistant by.
+		$social = array(
+			'hi',
+			'hello',
+			'hey',
+			'hiya',
+			'heya',
+			'howdy',
+			'hola',
+			'yo',
+			'sup',
+			'wassup',
+			'greetings',
+			'greeting',
+			'morning',
+			'afternoon',
+			'evening',
+			'night',
+			'today',
+			'tonight',
+			'good',
+			'well',
+			'hope',
+			'feel',
+			'feeling',
+			'day',
+			'am',
+			'doing',
+			'how',
+			'are',
+			'is',
+			'was',
+			'do',
+			'does',
+			'did',
+			'going',
+			'goes',
+			'up',
+			'whats',
+			'hows',
+			'howre',
+			'whos',
+			'what',
+			'you',
+			'your',
+			'youve',
+			'youre',
+			'u',
+			'im',
+			'i',
+			'm',
+			'me',
+			'mine',
+			'my',
+			'we',
+			'it',
+			'its',
+			'this',
+			'that',
+			'there',
+			'here',
+			'all',
+			'everything',
+			'anything',
+			'going',
+			'been',
+			'be',
+			'and',
+			'to',
+			'too',
+			'so',
+			'just',
+			'now',
+			'alright',
+			'ok',
+			'okay',
+			'fine',
+			'yes',
+			'no',
+			'zeko',
+			'ai',
+			'assistant',
+			'bot',
+			'friend',
+			'folks',
+			'guys',
+			'everyone',
+			'name',
+			'first',
+			'let',
+			'lets',
+		);
+
+		$has_opener = false;
+		foreach ( $tokens as $token ) {
+			$token = mb_strtolower( $token );
+			if ( in_array( $token, $openers, true ) ) {
+				$has_opener = true;
+				continue;
+			}
+			if ( ! in_array( $token, $social, true ) ) {
+				return false;
+			}
+		}
+
+		return $has_opener;
+	}
+
+	/**
+	 * The reply for a social opener: a short, personalized orientation plus
+	 * concrete starting points, never a search result.
+	 *
+	 * @param int $user_id User id.
+	 */
+	private function greeting_reply( int $user_id ): string {
+		$name = '';
+		if ( $user_id > 0 ) {
+			$user = get_userdata( $user_id );
+			if ( $user ) {
+				$name = (string) ( '' !== (string) $user->first_name ? $user->first_name : $user->display_name );
+				$name = trim( preg_replace( '/\s+/u', ' ', wp_strip_all_tags( $name ) ) );
+				if ( mb_strlen( $name ) > 40 ) {
+					$name = mb_substr( $name, 0, 40 );
+				}
+			}
+		}
+
+		$hello = '' !== $name ? sprintf( 'Hi %s, ', $name ) : 'Hi there, ';
+
+		return $hello . "I'm Zeko AI, your ecosystem assistant. I can help you navigate jobs, courses, Q&A, shopping, freelancing, mentoring, dating, wallet and rewards. Ask me about any of those, or tell me what you are trying to do and I'll point you to the right place.";
 	}
 
 	/**
@@ -1684,6 +1923,16 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 		$best_score  = 0;
 		$best_end    = -1;
 		foreach ( $this->get_intents() as $intent => $keywords ) {
+			// Greetings are only ever a short turn. "Hey, can you list the
+			// cafes near me?" is a real question that happens to open with a
+			// hello, and scoring it as small talk used to answer it with a
+			// generic greeting instead of business cards.
+			if ( 'greeting' === $intent ) {
+				$words = preg_split( '/[^\p{L}\p{N}\']+/u', $text );
+				if ( count( array_filter( (array) $words ) ) > 6 ) {
+					continue;
+				}
+			}
 			$score = 0;
 			$end   = -1;
 			foreach ( $keywords as $keyword ) {
@@ -1753,16 +2002,18 @@ class Zeko_AI_Agent_Provider extends Zeko_AI_Provider {
 	}
 
 	/**
-	 * Keyword match against lowercased text. Ambiguous short greetings match
+	 * Keyword match against lowercased text. Ambiguous short openers match
 	 * only as whole words so filler like "something" or "they" never trips
-	 * the greeting intent; longer keywords match as substrings so plurals
-	 * ("jobs", "payments", "sessions") still hit their intent.
+	 * the greeting intent, and a word that merely contains an opener
+	 * ("I said hello to my neighbour") is not a greeting at all; longer
+	 * keywords match as substrings so plurals ("jobs", "payments",
+	 * "sessions") still hit their intent.
 	 *
 	 * @param string $keyword Keyword.
 	 * @param string $text Text.
 	 */
 	private function keyword_matches( string $keyword, string $text ): bool {
-		if ( in_array( $keyword, array( 'hi', 'hey' ), true ) ) {
+		if ( in_array( $keyword, array( 'hi', 'hey', 'hello', 'help' ), true ) ) {
 			return (bool) preg_match( '/\b' . preg_quote( $keyword, '/' ) . '\b/', $text );
 		}
 		return false !== mb_strpos( $text, $keyword );

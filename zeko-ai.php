@@ -287,50 +287,11 @@ function zeko_ai_maybe_create_pages() {
 function zeko_ai_get_settings(): array {
 	$settings = get_option( 'zeko_ai_settings', array() );
 
-	$defaults = array(
-		'provider'                => 'mock',
-		'openai_key'              => '',
-		'openai_model'            => 'gpt-4o-mini',
-		'openai_base_url'         => 'https://api.openai.com/v1',
-		'anthropic_key'           => '',
-		'anthropic_model'         => 'claude-3-5-haiku-latest',
-		'openrouter_key'          => '',
-		'openrouter_model'        => 'openai/gpt-4o-mini',
-		'openrouter_base_url'     => 'https://openrouter.ai/api/v1',
-		'gemini_key'              => '',
-		'gemini_model'            => 'gemini-2.0-flash',
-		'gemini_base_url'         => 'https://generativelanguage.googleapis.com/v1beta/openai',
-		'groq_key'                => '',
-		'groq_model'              => 'llama-3.3-70b-versatile',
-		'groq_base_url'           => 'https://api.groq.com/openai/v1',
-		'deepseek_key'            => '',
-		'deepseek_model'          => 'deepseek-chat',
-		'deepseek_base_url'       => 'https://api.deepseek.com/v1',
-		'cloud_model'             => 'zeko-cloud',
-		'moderation_enabled'      => 1,
-		'moderation_threshold'    => 0.7,
-		'feature_assistant'       => 1,
-		'feature_content'         => 1,
-		'feature_search'          => 1,
-		'feature_recommendations' => 1,
-		'feature_moderation'      => 1,
-		'feature_analytics'       => 0,
-		'floating_widget'         => 1,
-		'streaming_enabled'       => 1,
-		'agent_world_knowledge'   => 0,
-		'agent_learning'          => 1,
-		'agent_auto_learn'        => 0,
-		'agent_email_alerts'      => 0,
-		'agent_radar_digest'      => 0,
-		'web_search_enabled'      => 0,
-		'web_search_provider'     => 'duckduckgo',
-		'google_search_api_key'   => '',
-		'google_search_engine_id' => '',
-		'bing_search_key'         => '',
-		'brave_search_key'        => '',
-		'serper_search_key'       => '',
-		'web_search_max_results'  => 5,
-	);
+	// Single source of truth: Zeko_AI_Settings::defaults() owns the default
+	// set (provider included). A second copy here could silently drift from
+	// the settings API, which is how the runtime kept defaulting to a
+	// different provider than the documented default.
+	$defaults = Zeko_AI_Settings::defaults();
 
 	return apply_filters( 'zeko_ai_settings', wp_parse_args( is_array( $settings ) ? $settings : array(), $defaults ) );
 }
